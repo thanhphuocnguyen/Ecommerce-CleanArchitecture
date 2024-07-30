@@ -52,7 +52,7 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
 
     public DateTimeOffset Created { get; set; }
 
-    public string? CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = default!;
 
     public DateTimeOffset? LastModified { get; set; }
 
@@ -151,6 +151,7 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
     public void AddRole(Role role)
     {
         _roles.Add(role);
+        AddDomainEvent(new RoleAddedDomainEvent(role));
     }
 }
 

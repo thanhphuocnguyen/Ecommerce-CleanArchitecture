@@ -59,11 +59,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(x => x.PhoneNumber).IsUnique();
 
         builder.HasIndex(x => x.Username).IsUnique();
-        var admin = User.Create("root", "user", "admin@example.com", "12354774", "admin", "admin");
-
-        admin.Value.AddRole(Role.Admin);
-
-        builder.HasData();
     }
 }
 

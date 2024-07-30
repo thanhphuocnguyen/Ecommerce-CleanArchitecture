@@ -1,6 +1,4 @@
-﻿using Ecommerce.Application.Contracts;
-
-namespace Ecommerce.Application;
+﻿namespace Ecommerce.Application.Contracts;
 
 public interface ITransactionalCommand : ICommand
 {

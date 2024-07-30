@@ -1,8 +1,8 @@
-using System.Security.Claims;
 using Carter;
 using Ecommerce.Application;
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Application.Users;
+using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Shared;
 using Ecommerce.WebAPI.Exceptions;
 using Mapster;
@@ -66,6 +66,22 @@ public class AccountsEndpoints : ICarterModule
 
         return result.Match(
             () => Results.Ok(result.Value.Adapt<UserResponse>()),
+            failure => failure.ToProblemDetails());
+    }
+
+    private static async Task<IResult> AddRole(ISender sender, AddRoleRequest request)
+    {
+        var role = Role.FromValue(request.Role);
+
+        if (role is null)
+        {
+            return Results.Problem("Invalid role value", statusCode: StatusCodes.Status400BadRequest);
+        }
+
+        var result = await sender.Send(new AddRoleCommand(new UserId(request.UserId), role));
+
+        return result.Match(
+            () => Results.Ok(),
             failure => failure.ToProblemDetails());
     }
 }
