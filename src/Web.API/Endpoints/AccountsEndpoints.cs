@@ -7,6 +7,7 @@ using Ecommerce.Domain.Shared;
 using Ecommerce.WebAPI.Exceptions;
 using Mapster;
 using MediatR;
+using Permission = Ecommerce.Domain.Enums.Permission;
 
 namespace Ecommerce.WebAPI.Controllers;
 
@@ -15,6 +16,7 @@ public class AccountsEndpoints : ICarterModule
     public const string Login = "login";
     public const string Register = "register";
     public const string AccountInfo = "account-info";
+    public const string AddRole = "add-role";
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -32,6 +34,11 @@ public class AccountsEndpoints : ICarterModule
             .MapGet(AccountInfo, GetAccountInfo)
             .RequireAuthorization()
             .WithName(nameof(GetAccountInfo));
+
+        group
+            .MapPost(AddRole, UserAddRole)
+            .RequireAuthorization()
+            .WithName(nameof(UserAddRole));
     }
 
     private static async Task<IResult> RegisterAccount(ISender sender, RegisterRequest request)
@@ -69,7 +76,7 @@ public class AccountsEndpoints : ICarterModule
             failure => failure.ToProblemDetails());
     }
 
-    private static async Task<IResult> AddRole(ISender sender, AddRoleRequest request)
+    private static async Task<IResult> UserAddRole(ISender sender, AddRoleRequest request)
     {
         var role = Role.FromValue(request.Role);
 
