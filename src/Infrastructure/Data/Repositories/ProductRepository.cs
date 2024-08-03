@@ -10,26 +10,26 @@ internal class ProductRepository(ApplicationDbContext dbContext) : IProductRepos
 
     public void Insert(Product product)
     {
-        dbContext.Set<Product>().Add(product);
+        dbContext.Products.Add(product);
     }
 
     public void Remove(Product product)
     {
-        dbContext.Set<Product>().Remove(product);
+        dbContext.Products.Remove(product);
     }
 
     public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await dbContext.Set<Product>().ToListAsync(cancellationToken);
+        return await dbContext.Products.ToListAsync(cancellationToken);
     }
 
     public async Task<Product?> GetByIdAsync(ProductId id, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Set<Product>().FindAsync(id, cancellationToken);
+        return await dbContext.Products.FindAsync(id, cancellationToken);
     }
 
     public void Update(Product product)
     {
-        dbContext.Set<Product>().Update(product);
+        dbContext.Products.Update(product);
     }
 }

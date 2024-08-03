@@ -53,6 +53,11 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
             cp.Property(p => p.Currency).HasColumnName("Currency").HasMaxLength(3).IsRequired();
         });
 
+        builder.HasOne<User>()
+            .WithMany()
+            .HasForeignKey(p => p.CreatorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.Property(p => p.Stock).IsRequired();
 
         builder.HasIndex(p => p.Sku).IsUnique();

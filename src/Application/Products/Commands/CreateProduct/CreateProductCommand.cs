@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Contracts;
+using Ecommerce.Domain.Entities;
 
 namespace Ecommerce.Application.Products.Commands.CreateProduct;
 
@@ -8,6 +9,7 @@ public sealed record CreateProductCommand(
     string Sku,
     decimal ComparePrice,
     string Description,
+    UserId CreatorId,
     decimal? Discount) : ICommand
 {
 }

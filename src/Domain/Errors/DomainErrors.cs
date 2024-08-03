@@ -43,6 +43,22 @@ public static class DomainErrors
         {
             public static readonly Error PhoneNumberNotFound = Error.NotFound("phone_number_not_found", "Phone number not found.");
         }
+
+        public static class Role
+        {
+            public static readonly Error RoleNotFound = Error.NotFound("role_not_found", "Role not found.");
+        }
+
+        public static class Cart
+        {
+            public static readonly Error CartNotFound = Error.NotFound("cart_not_found", "Cart not found.");
+        }
+
+        public static class Email
+        {
+            public static readonly Error Empty = Error.InvalidValue("email_empty", "Email should not be empty.");
+            public static readonly Error EmailNotFound = Error.NotFound("email_not_found", "Email not found.");
+        }
     }
 
     public static class Product

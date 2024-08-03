@@ -26,6 +26,7 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
     }
 
     private List<Address> _addresses = new();
+    private List<PaymentMethod> _paymentMethods = new();
     private List<Role> _roles = new();
 
     public string FirstName { get; private set; }
@@ -50,6 +51,10 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
 
     public IReadOnlyList<Address> Addresses => _addresses;
 
+    public IReadOnlyList<PaymentMethod> PaymentMethods => _paymentMethods;
+
+    public Cart Cart { get; private set; } = default!;
+
     public DateTimeOffset Created { get; set; }
 
     public string CreatedBy { get; set; } = default!;
@@ -66,9 +71,25 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
         string username,
         string password)
     {
+        if (string.IsNullOrWhiteSpace(firstName))
+        {
+            return Result.Failure<User>(DomainErrors.User.FirstName.Empty);
+        }
+
+        if (string.IsNullOrWhiteSpace(lastName))
+        {
+            return Result.Failure<User>(DomainErrors.User.LastName.Empty);
+        }
+
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            return Result.Failure<User>(DomainErrors.User.Email.Empty);
+        }
+
+        var userId = new UserId(Guid.NewGuid());
         return Result<User>.Success(
             new User(
-                new UserId(Guid.NewGuid()),
+                userId,
                 firstName,
                 lastName,
                 email,
@@ -152,6 +173,53 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
     {
         _roles.Add(role);
         AddDomainEvent(new RoleAddedDomainEvent(role));
+    }
+
+    public void RemoveRole(Role role)
+    {
+        _roles.Remove(role);
+        AddDomainEvent(new RoleRemovedDomainEvent(role));
+    }
+
+    public Result<PaymentMethod> AddPaymentMethod(
+        PaymentTypeId paymentTypeId,
+        string provider,
+        string cardNumber,
+        string cardHolderName,
+        string cardExpiration,
+        string cardSecurityNumber,
+        bool isDefault)
+    {
+        var paymentMethod = PaymentMethod.Create(
+            paymentTypeId,
+            Id,
+            provider,
+            cardNumber,
+            cardHolderName,
+            cardExpiration,
+            cardSecurityNumber,
+            isDefault);
+
+        _paymentMethods.Add(paymentMethod);
+
+        return paymentMethod;
+    }
+
+    public void InitCart()
+    {
+        Cart = Cart.Create(Id);
+    }
+
+    public Result UpdatePassword(string passwordHash)
+    {
+        if (string.IsNullOrWhiteSpace(passwordHash))
+        {
+            return Result.Failure(DomainErrors.Password.Empty);
+        }
+
+        PasswordHash = passwordHash;
+
+        return Result.Success();
     }
 }
 

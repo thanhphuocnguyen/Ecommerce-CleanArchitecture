@@ -18,7 +18,8 @@ public sealed class Product : Entity<ProductId>
         Sku sku,
         Money discount,
         string description,
-        Money comparePrice)
+        Money comparePrice,
+        UserId creatorId)
     : base(id)
     {
         Name = name;
@@ -27,6 +28,7 @@ public sealed class Product : Entity<ProductId>
         Discount = discount;
         Description = description;
         ComparePrice = comparePrice;
+        CreatorId = creatorId;
     }
 
     public string Name { get; private set; } = null!;
@@ -51,6 +53,8 @@ public sealed class Product : Entity<ProductId>
 
     public bool IsOutOfStock => Stock == 0;
 
+    public UserId CreatorId { get; private set; } = default!;
+
     public void SetStock(int stock)
     {
         Stock = stock;
@@ -68,6 +72,7 @@ public sealed class Product : Entity<ProductId>
         string currency,
         string description,
         decimal comparePrice,
+        UserId creatorId,
         decimal discount = 0)
     {
         var skuResult = Sku.Create(sku);
@@ -97,14 +102,16 @@ public sealed class Product : Entity<ProductId>
             return Result<Product>.Failure(comparePriceResult.Error!);
         }
 
-        var product = Result<Product>.Success(new Product(
-            new(Guid.NewGuid()),
-            name,
-            priceResult.Value,
-            skuResult.Value,
-            discountResult.Value,
-            description,
-            comparePriceResult.Value));
+        var product = Result<Product>.Success(
+            new Product(
+                new(Guid.NewGuid()),
+                name,
+                priceResult.Value,
+                skuResult.Value,
+                discountResult.Value,
+                description,
+                comparePriceResult.Value,
+                creatorId));
 
         return product;
     }

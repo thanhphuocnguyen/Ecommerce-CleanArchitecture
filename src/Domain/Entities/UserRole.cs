@@ -4,7 +4,7 @@ namespace Ecommerce.Domain;
 
 public class UserRole
 {
-    public UserId UserId { get; set; } = default!;
+    public UserId UserId { get; set; } = null!;
 
     public User User { get; set; } = default!;
 

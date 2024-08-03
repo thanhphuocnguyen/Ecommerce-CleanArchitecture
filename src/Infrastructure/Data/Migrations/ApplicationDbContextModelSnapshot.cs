@@ -95,6 +95,45 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                     b.ToTable("Addresses", (string)null);
                 });
 
+            modelBuilder.Entity("Ecommerce.Domain.Entities.Cart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Carts", (string)null);
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Entities.CartItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CartId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems", (string)null);
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Entities.LineItem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -156,6 +195,75 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                     b.ToTable("Orders", (string)null);
                 });
 
+            modelBuilder.Entity("Ecommerce.Domain.Entities.PaymentMethod", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardExpiration")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardHolderName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardSecurityNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LastModified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PaymentTypeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PaymentMethods", (string)null);
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Entities.PaymentType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentTypes", (string)null);
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Entities.Permission", b =>
                 {
                     b.Property<int>("Id")
@@ -193,6 +301,9 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("CreatorId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -219,10 +330,12 @@ namespace Ecommerce.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatorId");
+
                     b.HasIndex("Sku")
                         .IsUnique();
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Ecommerce.Domain.Entities.Role", b =>
@@ -405,6 +518,32 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ecommerce.Domain.Entities.Cart", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Entities.User", null)
+                        .WithOne("Cart")
+                        .HasForeignKey("Ecommerce.Domain.Entities.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Entities.CartItem", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Entities.Cart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Entities.LineItem", b =>
                 {
                     b.HasOne("Ecommerce.Domain.Entities.Order", null)
@@ -431,8 +570,31 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                     b.Navigation("Creator");
                 });
 
+            modelBuilder.Entity("Ecommerce.Domain.Entities.PaymentMethod", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Entities.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.Domain.Entities.User", null)
+                        .WithMany("PaymentMethods")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PaymentType");
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Entities.Product", b =>
                 {
+                    b.HasOne("Ecommerce.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.OwnsOne("Ecommerce.Domain.ValueObjects.Money", "ComparePrice", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
@@ -452,7 +614,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Product");
+                            b1.ToTable("Products");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
@@ -475,7 +637,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Product");
+                            b1.ToTable("Products");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
@@ -500,7 +662,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Product");
+                            b1.ToTable("Products");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
@@ -550,6 +712,11 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ecommerce.Domain.Entities.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Entities.Order", b =>
                 {
                     b.Navigation("LineItems");
@@ -558,6 +725,11 @@ namespace Ecommerce.Infrastructure.Data.Migrations
             modelBuilder.Entity("Ecommerce.Domain.Entities.User", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Cart")
+                        .IsRequired();
+
+                    b.Navigation("PaymentMethods");
                 });
 #pragma warning restore 612, 618
         }

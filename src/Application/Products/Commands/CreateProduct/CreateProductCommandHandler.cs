@@ -19,7 +19,8 @@ internal class CreateProductCommandHandler(IUnitOfWork unitOfWork, IProductRepos
             request.Sku,
             "USD",
             request.Description,
-            request.ComparePrice);
+            request.ComparePrice,
+            request.CreatorId);
 
         if (product.IsFailure)
         {
