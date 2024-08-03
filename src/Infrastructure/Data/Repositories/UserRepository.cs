@@ -37,4 +37,9 @@ internal class UserRepository(ApplicationDbContext dbContext) : IUserRepository
     {
         return _dbContext.Set<User>().FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber, cancellationToken);
     }
+
+    public Task<User?> GetByUserNameAsync(string username, CancellationToken cancellationToken = default)
+    {
+        return _dbContext.Set<User>().FirstOrDefaultAsync(x => x.Username == username, cancellationToken);
+    }
 }

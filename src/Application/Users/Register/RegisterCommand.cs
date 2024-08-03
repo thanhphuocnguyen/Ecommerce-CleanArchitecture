@@ -4,8 +4,8 @@ namespace Ecommerce.Application.Users;
 
 public record RegisterCommand(
     string Email,
-    string FirstName,
-    string LastName,
-    string PhoneNumber,
     string Username,
-    string Password) : ICommand<RegisterResponseDto>;
+    string Password,
+    string PhoneNumber,
+    string FirstName,
+    string LastName) : ICommand<RegisterResponseDto>;

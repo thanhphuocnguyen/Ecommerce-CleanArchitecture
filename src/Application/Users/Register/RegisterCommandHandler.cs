@@ -28,12 +28,12 @@ internal sealed class RegisterCommandHandler(
         var passwordHashed = PasswordManager.HashPassword(request.Password);
 
         var user = User.Create(
-            request.Email,
-            request.FirstName,
-            request.LastName,
-            request.PhoneNumber,
-            request.Username,
-            passwordHashed);
+            firstName: request.FirstName,
+            lastName: request.LastName,
+            email: request.Email,
+            phoneNumber: request.PhoneNumber,
+            username: request.Username,
+            password: passwordHashed);
 
         if (user.IsFailure)
         {

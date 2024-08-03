@@ -23,6 +23,7 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
         PhoneNumber = phoneNumber;
         Username = username;
         PasswordHash = passwordHash;
+        _roles.Add(Role.User);
     }
 
     private List<Address> _addresses = new();

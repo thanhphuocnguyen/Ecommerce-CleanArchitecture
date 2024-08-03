@@ -43,13 +43,7 @@ public class AccountsEndpoints : ICarterModule
 
     private async Task<IResult> RegisterAccount(ISender sender, [FromBody] RegisterRequest request)
     {
-        var result = await sender.Send(new RegisterCommand(
-            request.Email,
-            request.FirstName,
-            request.LastName,
-            request.PhoneNumber,
-            request.Username,
-            request.Password));
+        var result = await sender.Send(request.Adapt<RegisterCommand>());
 
         return result.Match(
             () => Results.Ok(result.Value));
@@ -57,9 +51,7 @@ public class AccountsEndpoints : ICarterModule
 
     private async Task<IResult> LoginAccount(ISender sender, LoginRequest request)
     {
-        var result = await sender.Send(new LoginCommand(
-            request.Username,
-            request.Password));
+        var result = await sender.Send(request.Adapt<LoginCommand>());
 
         return result.Match(
             () => Results.Ok(result.Value));

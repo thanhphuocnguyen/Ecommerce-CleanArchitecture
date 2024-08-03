@@ -22,7 +22,7 @@ internal class LoginCommandHandler : ICommandHandler<LoginCommand, string>
     public async Task<Result<string>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         // Get user
-        User? user = await _memberRepository.GetByEmailAsync(request.Email, cancellationToken);
+        User? user = await _memberRepository.GetByUserNameAsync(request.Username, cancellationToken);
 
         if (user is null)
         {

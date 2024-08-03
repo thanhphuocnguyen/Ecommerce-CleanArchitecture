@@ -3,10 +3,11 @@ using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Carter;
 using Ecommerce.Infrastructure;
-using Ecommerce.WebAPI;
 using Ecommerce.WebAPI.Exceptions;
 using Ecommerce.WebAPI.Middleware;
+using Ecommerce.WebAPI.OpenApi;
 using Ecommerce.WebAPI.OptionsSetup;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
