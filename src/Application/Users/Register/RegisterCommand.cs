@@ -8,6 +8,4 @@ public record RegisterCommand(
     string LastName,
     string PhoneNumber,
     string Username,
-    string Password) : ICommand<RegisterResponseDto>
-{
-}
+    string Password) : ICommand<RegisterResponseDto>;

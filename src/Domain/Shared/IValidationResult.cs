@@ -2,10 +2,7 @@
 
 public interface IValidationResult
 {
-    public static readonly Error ValidationError = new(
-            "RequestValidationError",
-            "Request body is invalid.",
-            ErrorType.InvalidValue);
+    public static readonly Error ValidationError = Error.InvalidValue("ValidationError", "A validation problem occurred.");
 
     Error[] Errors { get; }
 }

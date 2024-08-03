@@ -5,7 +5,6 @@ namespace Ecommerce.WebAPI.Exceptions;
 
 internal sealed class ExceptionHandler : IExceptionHandler
 {
-    /// <inheritdoc/>
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         var problemDetails = exception switch

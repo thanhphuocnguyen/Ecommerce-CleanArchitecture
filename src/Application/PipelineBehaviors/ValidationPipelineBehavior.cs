@@ -26,7 +26,10 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
             .Select(validator => validator.Validate(request))
             .SelectMany(validationResult => validationResult.Errors)
             .Where(validationFailure => validationFailure != null)
-            .Select(failure => new Error(failure.PropertyName, failure.ErrorMessage, ErrorType.InvalidValue))
+            .Select(failure => new Error(
+                failure.PropertyName,
+                failure.ErrorMessage,
+                ErrorType.InvalidValue))
             .Distinct()
             .ToArray();
 

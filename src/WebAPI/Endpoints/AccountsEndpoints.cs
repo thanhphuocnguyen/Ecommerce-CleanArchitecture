@@ -7,7 +7,7 @@ using Ecommerce.Domain.Shared;
 using Ecommerce.WebAPI.Exceptions;
 using Mapster;
 using MediatR;
-using Permission = Ecommerce.Domain.Enums.Permission;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.WebAPI.Controllers;
 
@@ -41,7 +41,7 @@ public class AccountsEndpoints : ICarterModule
             .WithName(nameof(UserAddRole));
     }
 
-    private static async Task<IResult> RegisterAccount(ISender sender, RegisterRequest request)
+    private async Task<IResult> RegisterAccount(ISender sender, [FromBody] RegisterRequest request)
     {
         var result = await sender.Send(new RegisterCommand(
             request.Email,
@@ -56,7 +56,7 @@ public class AccountsEndpoints : ICarterModule
             failure => failure.ToProblemDetails());
     }
 
-    private static async Task<IResult> LoginAccount(ISender sender, LoginRequest request)
+    private async Task<IResult> LoginAccount(ISender sender, LoginRequest request)
     {
         var result = await sender.Send(new LoginCommand(
             request.Username,
@@ -67,7 +67,7 @@ public class AccountsEndpoints : ICarterModule
             failure => failure.ToProblemDetails());
     }
 
-    private static async Task<IResult> GetAccountInfo(ISender sender, IUserContext userContext)
+    private async Task<IResult> GetAccountInfo(ISender sender, IUserContext userContext)
     {
         var result = await sender.Send(new GetUserQuery(userContext.UserId));
 
@@ -76,7 +76,7 @@ public class AccountsEndpoints : ICarterModule
             failure => failure.ToProblemDetails());
     }
 
-    private static async Task<IResult> UserAddRole(ISender sender, AddRoleRequest request)
+    private async Task<IResult> UserAddRole(ISender sender, AddRoleRequest request)
     {
         var role = Role.FromValue(request.Role);
 

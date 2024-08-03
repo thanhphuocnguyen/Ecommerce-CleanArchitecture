@@ -77,6 +77,7 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
 var apiVersion = app.NewApiVersionSet()
     .HasApiVersion(new ApiVersion(1))
     .HasApiVersion(new ApiVersion(2))
