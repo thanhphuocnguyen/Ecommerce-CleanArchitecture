@@ -58,11 +58,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Created).IsRequired();
 
-        builder.Property(x => x.CreatedBy).IsRequired();
-
         builder.Property(x => x.LastModified);
-
-        builder.Property(x => x.LastModifiedBy);
 
         // Indexes
         builder.HasIndex(x => x.Email).IsUnique();

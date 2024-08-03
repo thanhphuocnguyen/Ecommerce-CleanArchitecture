@@ -1,16 +1,19 @@
 ﻿using Ecommerce.Domain.Shared;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Ecommerce.Application.Behaviors;
 
 public class ValidationPipelineBehavior<TRequest, TResponse>(
-    IEnumerable<IValidator<TRequest>> validators)
-    : IPipelineBehavior<TRequest, TResponse>
+    IEnumerable<IValidator<TRequest>> validators,
+    ILogger<ValidationPipelineBehavior<TRequest, TResponse>> logger)
+: IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : Result
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators = validators;
+    private readonly ILogger<ValidationPipelineBehavior<TRequest, TResponse>> _logger = logger;
 
     public async Task<TResponse> Handle(
         TRequest request,
@@ -33,19 +36,22 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
             .Distinct()
             .ToArray();
 
+        _logger.LogInformation("Validation errors occurred: {Errors}", errors);
+
         if (errors.Any())
         {
-            return CreateValidationResult<TResponse>(errors);
+            return CreateValidationResult<TResponse>(errors, _logger);
         }
 
         return await next();
     }
 
-    private static TResult CreateValidationResult<TResult>(Error[] errors)
+    private static TResult CreateValidationResult<TResult>(Error[] errors, ILogger logger)
         where TResult : Result
     {
         if (typeof(TResult) == typeof(Result))
         {
+            logger.LogInformation("Validation errors occurred: {Errors}", errors);
             return (ValidationResult.WithErrors(errors) as TResult)!;
         }
 
@@ -53,8 +59,8 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
             .GetGenericTypeDefinition()
             .MakeGenericType(typeof(TResult).GenericTypeArguments[0])
             .GetMethod(nameof(ValidationResult.WithErrors))!
-            .Invoke(null, errors)!;
-
+            .Invoke(null, new object?[] { errors })!;
+        logger.LogInformation("Type of ValidationResult: {ValidationResult}", validationResult.GetType());
         return (TResult)validationResult;
     }
 }

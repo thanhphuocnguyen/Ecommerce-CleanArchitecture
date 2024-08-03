@@ -82,9 +82,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                     PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
                     ProfilePicture = table.Column<string>(type: "TEXT", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    CreatedBy = table.Column<string>(type: "TEXT", nullable: false),
-                    LastModified = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "TEXT", nullable: true)
+                    LastModified = table.Column<DateTimeOffset>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

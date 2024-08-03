@@ -57,11 +57,7 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
 
     public DateTimeOffset Created { get; set; }
 
-    public string CreatedBy { get; set; } = default!;
-
     public DateTimeOffset? LastModified { get; set; }
-
-    public string? LastModifiedBy { get; set; }
 
     public static Result<User> Create(
         string firstName,

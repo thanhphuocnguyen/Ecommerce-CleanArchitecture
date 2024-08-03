@@ -52,8 +52,7 @@ public class AccountsEndpoints : ICarterModule
             request.Password));
 
         return result.Match(
-            () => Results.Ok(result.Value),
-            failure => failure.ToProblemDetails());
+            () => Results.Ok(result.Value));
     }
 
     private async Task<IResult> LoginAccount(ISender sender, LoginRequest request)
@@ -63,8 +62,7 @@ public class AccountsEndpoints : ICarterModule
             request.Password));
 
         return result.Match(
-            () => Results.Ok(result.Value),
-            failure => failure.ToProblemDetails());
+            () => Results.Ok(result.Value));
     }
 
     private async Task<IResult> GetAccountInfo(ISender sender, IUserContext userContext)
@@ -72,8 +70,7 @@ public class AccountsEndpoints : ICarterModule
         var result = await sender.Send(new GetUserQuery(userContext.UserId));
 
         return result.Match(
-            () => Results.Ok(result.Value.Adapt<UserResponse>()),
-            failure => failure.ToProblemDetails());
+            () => Results.Ok(result.Value.Adapt<UserResponse>()));
     }
 
     private async Task<IResult> UserAddRole(ISender sender, AddRoleRequest request)
@@ -88,7 +85,6 @@ public class AccountsEndpoints : ICarterModule
         var result = await sender.Send(new AddRoleCommand(new UserId(request.UserId), role));
 
         return result.Match(
-            () => Results.Ok(),
-            failure => failure.ToProblemDetails());
+            () => Results.Ok());
     }
 }

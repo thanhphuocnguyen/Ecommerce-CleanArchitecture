@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecommerce.Infrastructure.Data.Repositories;
+namespace Ecommerce.Infrastructure.Data;
 
 public sealed class ApplicationDbContext : DbContext
 {

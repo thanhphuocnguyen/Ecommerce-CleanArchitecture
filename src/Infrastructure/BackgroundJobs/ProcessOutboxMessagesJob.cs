@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Domain.Shared.Primitives;
-using Ecommerce.Infrastructure.Data.Repositories;
+using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Outbox;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

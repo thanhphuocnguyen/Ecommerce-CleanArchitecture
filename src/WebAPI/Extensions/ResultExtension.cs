@@ -1,9 +1,37 @@
 ﻿using Ecommerce.Domain.Shared;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.WebAPI.Exceptions;
 
 public static class ResultExtension
 {
+    public static IResult Match(
+        this Result result,
+        Func<IResult> onSuccess)
+    {
+        if (result.IsSuccess)
+        {
+            return onSuccess();
+        }
+
+        return result switch
+        {
+            IValidationResult validationResult =>
+                Results.BadRequest(new ProblemDetails
+                {
+                    Title = "Validation Error",
+                    Status = StatusCodes.Status400BadRequest,
+                    Detail = result.Error.Description,
+                    Extensions = new Dictionary<string, object?>
+                    {
+                        ["errors"] = validationResult.Errors
+                    }
+                }),
+            _ => result.Error.ToProblemDetails()
+        };
+    }
+
     public static IResult ToProblemDetails(this Error error)
     {
         return Results.Problem(

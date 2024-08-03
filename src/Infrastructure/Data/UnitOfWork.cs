@@ -11,15 +11,10 @@ using Newtonsoft.Json;
 
 namespace Ecommerce.Infrastructure.Data;
 
-internal sealed class UnitOfWork(
-    ApplicationDbContext dbContext,
-    TimeProvider dateTime,
-    IUserContext user)
-    : IUnitOfWork
+internal sealed class UnitOfWork(ApplicationDbContext dbContext, TimeProvider dateTime) : IUnitOfWork
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly TimeProvider dateTime = dateTime;
-    private readonly IUserContext user = user;
 
     /// <inheritdoc/>
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -2,7 +2,7 @@
 
 public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
 {
-    public ValidationResult(Error[] errors)
+    private ValidationResult(Error[] errors)
         : base(false, IValidationResult.ValidationError, default!) => Errors = errors;
 
     public Error[] Errors { get; }
@@ -12,8 +12,11 @@ public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
 
 public sealed class ValidationResult : Result, IValidationResult
 {
-    public ValidationResult(Error[] errors)
-        : base(false, IValidationResult.ValidationError) => Errors = errors;
+    private ValidationResult(Error[] errors)
+        : base(false, IValidationResult.ValidationError)
+    {
+        Errors = errors;
+    }
 
     public Error[] Errors { get; }
 

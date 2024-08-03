@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Domain.Entities;
-using Ecommerce.Infrastructure.Data.Repositories;
+using Ecommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Authentication;
