@@ -21,6 +21,8 @@ public sealed class ApplicationDbContext : DbContext
 
     public DbSet<Address> Addresses { get; set; } = null!;
 
+    public DbSet<Role> Roles { get; set; } = null!;
+
     public ApplicationDbContext(DbContextOptions options)
         : base(options)
     {

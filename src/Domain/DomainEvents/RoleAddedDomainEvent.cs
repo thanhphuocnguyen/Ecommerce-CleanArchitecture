@@ -11,8 +11,8 @@ public record RoleAddedDomainEvent : IDomainEvent
 
     public RoleAddedDomainEvent(Role role)
     {
-        Role = role;
+        Role = role.Value;
     }
 
-    public Role Role { get; }
+    public int Role { get; }
 }

@@ -60,6 +60,8 @@ public static class DependencyInjection
         services.AddScoped<IPermissionService, PermissionService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
 
+        services.ConfigureOptions<JwtBearerOptionsSetup>();
+
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();

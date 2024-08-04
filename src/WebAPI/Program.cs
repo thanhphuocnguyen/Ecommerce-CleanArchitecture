@@ -18,7 +18,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
-builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
 builder.Services
     .AddApplication()
@@ -74,8 +73,8 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler();
 app.UseSerilogRequestLogging();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

@@ -10,6 +10,9 @@ public static class DomainErrors
         public static readonly Error UserAlreadyExists = Error.Conflict("user_already_exists", "User already exists.");
         public static readonly Error InvalidCredentials = Error.Unauthorized("invalid_credentials", "Invalid credentials.");
         public static readonly Error InvalidPassword = Error.InvalidValue("invalid_password", "Invalid password.");
+        public static readonly Error InvalidRole = Error.InvalidValue("invalid_role", "Invalid role.");
+        public static readonly Error RoleAlreadyExists = Error.Conflict("role_already_exists", "Role already exists.");
+        public static readonly Error RoleNotFound = Error.NotFound("role_not_found", "Role not found.");
 
         public static class FirstName
         {
@@ -83,6 +86,8 @@ public static class DomainErrors
     {
         public static readonly Error RoleNotFound = Error.NotFound("role_not_found", "Role not found.");
         public static readonly Error RoleAlreadyExists = Error.Conflict("role_already_exists", "Role already exists.");
+        public static readonly Error RoleIsAssignedToUser = Error.Conflict("role_is_assigned_to_user", "Role is assigned to user.");
+        public static readonly Error RoleIsNotAssignedToUser = Error.Conflict("role_is_not_assigned_to_user", "Role is not assigned to user.");
     }
 
     public static class Permission

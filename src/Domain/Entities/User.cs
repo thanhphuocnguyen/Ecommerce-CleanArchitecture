@@ -48,7 +48,7 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
 
     public string? ProfilePicture { get; private set; }
 
-    public IReadOnlyList<Role> Roles => _roles;
+    public IReadOnlyList<Role> Roles => _roles.AsReadOnly();
 
     public IReadOnlyList<Address> Addresses => _addresses;
 
@@ -164,18 +164,6 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
     public void ConfirmEmail()
     {
         EmailConfirmed = true;
-    }
-
-    public void AddRole(Role role)
-    {
-        _roles.Add(role);
-        AddDomainEvent(new RoleAddedDomainEvent(role));
-    }
-
-    public void RemoveRole(Role role)
-    {
-        _roles.Remove(role);
-        AddDomainEvent(new RoleRemovedDomainEvent(role));
     }
 
     public Result<PaymentMethod> AddPaymentMethod(

@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Text;
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Entities;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -23,7 +22,7 @@ public class JwtProvider : IJwtProvider
     public async Task<string> CreateTokenAsync(User user)
     {
         List<Claim> claims = [
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

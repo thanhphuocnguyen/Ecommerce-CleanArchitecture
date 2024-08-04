@@ -1,6 +1,4 @@
-﻿using Ecommerce.Domain.Entities;
-
-namespace Ecommerce.Application.Users;
+﻿namespace Ecommerce.Application.Users;
 
 public record UserResponse(
         Guid Id,
@@ -8,9 +6,23 @@ public record UserResponse(
         string FirstName,
         string LastName,
         string PhoneNumber,
-        List<Address> Addresses,
-        List<string> Role,
+        List<AddressResponse> Addresses,
+        List<RoleResponse> Role,
         DateTimeOffset CreatedAt,
-        DateTimeOffset? UpdatedAt)
-{
-}
+        DateTimeOffset? UpdatedAt);
+
+public record AddressResponse(
+        string Street,
+        string City,
+        string State,
+        string? Country,
+        string? ZipCode);
+
+public record PermissionResponse(
+        int Id,
+        string Name);
+
+public record RoleResponse(
+        int Id,
+        string Name,
+        List<PermissionResponse> Permissions);

@@ -1,9 +1,6 @@
 using Carter;
-using Ecommerce.Application;
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Application.Users;
-using Ecommerce.Domain.Entities;
-using Ecommerce.Domain.Shared;
 using Ecommerce.WebAPI.Exceptions;
 using Mapster;
 using MediatR;
@@ -17,6 +14,7 @@ public class AccountsEndpoints : ICarterModule
     public const string Register = "register";
     public const string AccountInfo = "account-info";
     public const string AddRole = "add-role";
+    public const string RemoveRole = "remove-role";
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -34,11 +32,6 @@ public class AccountsEndpoints : ICarterModule
             .MapGet(AccountInfo, GetAccountInfo)
             .RequireAuthorization()
             .WithName(nameof(GetAccountInfo));
-
-        group
-            .MapPost(AddRole, UserAddRole)
-            .RequireAuthorization()
-            .WithName(nameof(UserAddRole));
     }
 
     private async Task<IResult> RegisterAccount(ISender sender, [FromBody] RegisterRequest request)
@@ -63,20 +56,5 @@ public class AccountsEndpoints : ICarterModule
 
         return result.Match(
             () => Results.Ok(result.Value.Adapt<UserResponse>()));
-    }
-
-    private async Task<IResult> UserAddRole(ISender sender, AddRoleRequest request)
-    {
-        var role = Role.FromValue(request.Role);
-
-        if (role is null)
-        {
-            return Results.Problem("Invalid role value", statusCode: StatusCodes.Status400BadRequest);
-        }
-
-        var result = await sender.Send(new AddRoleCommand(new UserId(request.UserId), role));
-
-        return result.Match(
-            () => Results.Ok());
     }
 }

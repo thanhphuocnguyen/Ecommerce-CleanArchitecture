@@ -1,16 +1,16 @@
 ﻿using System.Text;
-using Ecommerce.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Ecommerce.WebAPI.OptionsSetup;
+namespace Ecommerce.Infrastructure.Authentication;
 
 public class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _jwtOptions;
 
-    public JwtBearerOptionsSetup(IOptions<JwtOptions> options)
+    public JwtBearerOptionsSetup(IOptions<JwtOptions> options, ILogger<JwtBearerOptionsSetup> logger)
     {
         _jwtOptions = options.Value;
     }
@@ -19,13 +19,13 @@ public class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
     {
         options.TokenValidationParameters = new()
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
             ValidIssuer = _jwtOptions.Issuer,
             ValidAudience = _jwtOptions.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret))
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret)),
         };
     }
 }
