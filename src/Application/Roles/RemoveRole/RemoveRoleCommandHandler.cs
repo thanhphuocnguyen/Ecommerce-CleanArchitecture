@@ -7,10 +7,11 @@ using Ecommerce.Domain.Users;
 
 namespace Ecommerce.Application.Roles;
 
-public class RemoveRoleCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork) : ICommandHandler<RemoveRoleCommand>
+public class RemoveRoleCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, IRoleRepository roleRepository) : ICommandHandler<RemoveRoleCommand>
 {
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IRoleRepository _roleRepository = roleRepository;
 
     public async Task<Result> Handle(RemoveRoleCommand request, CancellationToken cancellationToken)
     {
@@ -21,7 +22,7 @@ public class RemoveRoleCommandHandler(IUserRepository userRepository, IUnitOfWor
             return Result.Failure(DomainErrors.User.UserNotFound);
         }
 
-        var role = user.Roles.FirstOrDefault(x => x.Value == request.RoleId);
+        var role = await _roleRepository.GetByIdAsync(request.RoleId, cancellationToken);
 
         if (role is null)
         {
@@ -29,6 +30,8 @@ public class RemoveRoleCommandHandler(IUserRepository userRepository, IUnitOfWor
         }
 
         user.RemoveRole(role);
+
+        _userRepository.Update(user);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

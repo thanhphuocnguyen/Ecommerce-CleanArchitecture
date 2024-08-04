@@ -58,13 +58,13 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Value = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Value);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,7 +109,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                         name: "FK_RolePermission_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Value",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -246,17 +246,17 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                 name: "RoleUser",
                 columns: table => new
                 {
-                    RolesValue = table.Column<int>(type: "INTEGER", nullable: false),
+                    RolesId = table.Column<int>(type: "INTEGER", nullable: false),
                     UsersId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleUser", x => new { x.RolesValue, x.UsersId });
+                    table.PrimaryKey("PK_RoleUser", x => new { x.RolesId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_RoleUser_Roles_RolesValue",
-                        column: x => x.RolesValue,
+                        name: "FK_RoleUser_Roles_RolesId",
+                        column: x => x.RolesId,
                         principalTable: "Roles",
-                        principalColumn: "Value",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RoleUser_Users_UsersId",
@@ -280,7 +280,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                         name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Value",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
@@ -355,7 +355,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Roles",
-                columns: new[] { "Value", "Name" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Admin" },

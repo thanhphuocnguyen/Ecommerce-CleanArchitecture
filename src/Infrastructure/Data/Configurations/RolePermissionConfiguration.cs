@@ -20,6 +20,6 @@ public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissi
 
     private static RolePermission Create(Role role, Permission permission)
     {
-        return new RolePermission { RoleId = role.Value, PermissionId = (int)permission };
+        return new RolePermission { RoleId = role.Id, PermissionId = (int)permission };
     }
 }

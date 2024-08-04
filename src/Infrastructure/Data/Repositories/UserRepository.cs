@@ -26,7 +26,6 @@ internal class UserRepository(ApplicationDbContext dbContext) : IUserRepository
     public async Task<User?> GetByIdAsync(UserId id, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Users
-            .Include(u => u.Roles)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 

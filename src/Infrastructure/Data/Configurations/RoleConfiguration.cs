@@ -11,7 +11,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         builder.ToTable("Roles");
 
-        builder.HasKey(r => r.Value);
+        builder.HasKey(r => r.Id);
 
         builder
             .HasMany(r => r.Permissions)

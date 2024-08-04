@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240803150314_InitDatabase")]
+    [Migration("20240804134534_InitDatabase")]
     partial class InitDatabase
     {
         /// <inheritdoc />
@@ -343,7 +343,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Ecommerce.Domain.Entities.Role", b =>
                 {
-                    b.Property<int>("Value")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -351,24 +351,24 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Value");
+                    b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Value = 1,
+                            Id = 1,
                             Name = "Admin"
                         },
                         new
                         {
-                            Value = 2,
+                            Id = 2,
                             Name = "User"
                         },
                         new
                         {
-                            Value = 3,
+                            Id = 3,
                             Name = "Shop"
                         });
                 });
@@ -477,13 +477,13 @@ namespace Ecommerce.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.Property<int>("RolesValue")
+                    b.Property<int>("RolesId")
                         .HasColumnType("INTEGER");
 
                     b.Property<Guid>("UsersId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("RolesValue", "UsersId");
+                    b.HasKey("RolesId", "UsersId");
 
                     b.HasIndex("UsersId");
 
@@ -697,7 +697,7 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                 {
                     b.HasOne("Ecommerce.Domain.Entities.Role", null)
                         .WithMany()
-                        .HasForeignKey("RolesValue")
+                        .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

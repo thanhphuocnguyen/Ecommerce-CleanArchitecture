@@ -32,7 +32,7 @@ public class GetUserQueryHandler(IUserRepository userRepository) : IQueryHandler
                 x.State,
                 x?.Country,
                 x?.ZipCode)).ToList(),
-            user.Roles.Select(role => new RoleResponse(role.Value, role.Name, role.Permissions.Select(x => new PermissionResponse(x.Id, x.Name)).ToList())).ToList(),
+            user.Roles.Select(role => new RoleResponse(role.Id, role.Name, role.Permissions.Select(x => new PermissionResponse(x.Id, x.Name)).ToList())).ToList(),
             user.Created,
             user?.LastModified);
 

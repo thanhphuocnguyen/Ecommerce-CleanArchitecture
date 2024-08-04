@@ -15,7 +15,7 @@ public class RoleRepository(ApplicationDbContext dbContext) : IRoleRepository
 
     public Task<Role?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        return _dbContext.Roles.Include(x => x.Users).FirstOrDefaultAsync(x => x.Value == id, cancellationToken);
+        return _dbContext.Roles.Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public Task<Role?> GetByNameAsync(string name, CancellationToken cancellationToken = default)

@@ -211,6 +211,11 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
     {
         _roles.Remove(role);
     }
+
+    public void AddRole(Role role)
+    {
+        _roles.Add(role);
+    }
 }
 
 public record UserId(Guid Value);

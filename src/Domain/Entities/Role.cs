@@ -10,8 +10,8 @@ public class Role : Enumeration<Role>
 
     public static readonly Role Shop = new Role(3, "Shop");
 
-    public Role(int value, string name)
-    : base(value, name)
+    public Role(int id, string name)
+    : base(id, name)
     {
     }
 

@@ -7,7 +7,7 @@ public record UserResponse(
         string LastName,
         string PhoneNumber,
         List<AddressResponse> Addresses,
-        List<RoleResponse> Role,
+        List<RoleResponse> Roles,
         DateTimeOffset CreatedAt,
         DateTimeOffset? UpdatedAt);
 
