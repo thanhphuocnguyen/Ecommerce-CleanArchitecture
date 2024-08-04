@@ -20,14 +20,14 @@ public class RolesEndpoints : CarterModule
             .WithName(nameof(AddRole));
 
         group
-            .MapPost("remove-role", RemoveRole)
+            .MapDelete("remove-role", RemoveRole)
             .RequireAuthorization()
             .WithName(nameof(RemoveRole));
     }
 
     private async Task<IResult> RemoveRole(ISender sender, [FromBody] RemoveRoleRequest request)
     {
-        var result = await sender.Send(new RemoveRoleCommand(request.UserId, request.RoleId));
+        var result = await sender.Send(new RemoveRoleCommand(new(request.UserId), request.RoleId));
 
         return result.Match(
             () => Results.Ok());

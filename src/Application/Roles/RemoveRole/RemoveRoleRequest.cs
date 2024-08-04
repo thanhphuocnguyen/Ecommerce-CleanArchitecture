@@ -2,4 +2,4 @@
 
 namespace Ecommerce.Application.Roles;
 
-public record RemoveRoleRequest(UserId UserId, int RoleId);
+public record RemoveRoleRequest(Guid UserId, int RoleId);

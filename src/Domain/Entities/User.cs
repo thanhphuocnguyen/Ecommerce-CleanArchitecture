@@ -206,6 +206,11 @@ public sealed class User : AggregateRoot<UserId>, IAuditableEntity
 
         return Result.Success();
     }
+
+    public void RemoveRole(Role role)
+    {
+        _roles.Remove(role);
+    }
 }
 
 public record UserId(Guid Value);
