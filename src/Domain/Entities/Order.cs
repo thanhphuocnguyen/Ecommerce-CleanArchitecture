@@ -16,19 +16,19 @@ public class Order : AggregateRoot<OrderId>, IAuditableEntity
 
     private Order(
         OrderId id,
-        User creator,
+        UserId creatorId,
         decimal price,
         int quantity)
     : base(id)
     {
-        Creator = creator;
+        CreatorId = creatorId;
         Price = price;
         Quantity = quantity;
     }
 
     public OrderStatus Status { get; private set; }
 
-    public User Creator { get; private set; } = null!;
+    public UserId CreatorId { get; private set; } = null!;
 
     public Money Total => _lineItems.Aggregate(Money.Zero("USD"), (total, item) => total.Add(item.Price));
 
@@ -43,7 +43,7 @@ public class Order : AggregateRoot<OrderId>, IAuditableEntity
     public DateTimeOffset? LastModified { get; set; }
 
     public static Result<Order> Create(
-        User creator,
+        UserId creator,
         decimal price,
         int quantity)
     {

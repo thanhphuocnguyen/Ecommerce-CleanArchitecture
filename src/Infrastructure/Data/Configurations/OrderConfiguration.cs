@@ -17,10 +17,6 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasConversion(v => v.Value, v => new OrderId(v));
 
         builder
-            .HasOne(x => x.Creator)
-            .WithMany();
-
-        builder
             .Property(x => x.Price)
             .IsRequired();
         builder

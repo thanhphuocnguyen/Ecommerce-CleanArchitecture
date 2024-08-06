@@ -1,4 +1,4 @@
-﻿using Ecommerce.Infrastructure.Authentication;
+﻿using Ecommerce.Infrastructure.Identity;
 using Microsoft.Extensions.Options;
 
 namespace Ecommerce.WebAPI.OptionsSetup;

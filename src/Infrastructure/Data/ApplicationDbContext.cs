@@ -1,27 +1,27 @@
 ﻿using Ecommerce.Domain.Entities;
+using Ecommerce.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Data;
 
-public sealed class ApplicationDbContext : DbContext
+public sealed class ApplicationDbContext
+    : IdentityDbContext<AppUser, AppRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, AppRoleClaim, IdentityUserToken<string>>
 {
-    public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<Product> Products => Set<Product>();
 
-    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Cart> Carts => Set<Cart>();
 
-    public DbSet<Cart> Carts { get; set; } = null!;
+    public DbSet<Order> Orders => Set<Order>();
 
-    public DbSet<Order> Orders { get; set; } = null!;
+    public DbSet<LineItem> LineItems => Set<LineItem>();
 
-    public DbSet<LineItem> LineItems { get; set; } = null!;
+    public DbSet<PaymentMethod> PaymentMethods => Set<PaymentMethod>();
 
-    public DbSet<PaymentMethod> PaymentMethods { get; set; } = null!;
+    public DbSet<PaymentType> PaymentTypes => Set<PaymentType>();
 
-    public DbSet<PaymentType> PaymentTypes { get; set; } = null!;
-
-    public DbSet<Address> Addresses { get; set; } = null!;
-
-    public DbSet<Role> Roles { get; set; } = null!;
+    public DbSet<Address> Addresses => Set<Address>();
 
     public ApplicationDbContext(DbContextOptions options)
         : base(options)

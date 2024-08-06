@@ -13,7 +13,7 @@ public sealed class Address : Entity<AddressId>
         string state,
         string country,
         string zipCode,
-        User user,
+        UserId userId,
         string phoneNumber)
     : base(id)
     {
@@ -22,7 +22,7 @@ public sealed class Address : Entity<AddressId>
         State = state;
         Country = country;
         ZipCode = zipCode;
-        UserId = user.Id;
+        UserId = userId;
         PhoneNumber = phoneNumber;
     }
 

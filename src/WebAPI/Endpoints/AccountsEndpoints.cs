@@ -39,7 +39,7 @@ public class AccountsEndpoints : ICarterModule
         var result = await sender.Send(request.Adapt<RegisterCommand>());
 
         return result.Match(
-            () => Results.Ok(result.Value));
+            () => Results.Ok());
     }
 
     private async Task<IResult> LoginAccount(ISender sender, LoginRequest request)

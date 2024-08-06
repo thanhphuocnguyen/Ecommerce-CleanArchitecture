@@ -1,15 +1,10 @@
 ﻿using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Repositories;
-using Ecommerce.Domain.Users;
-using Ecommerce.Infrastructure.Authentication;
 using Ecommerce.Infrastructure.Caching;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.Repositories;
-using Ecommerce.Infrastructure.Services;
 using Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,10 +27,8 @@ public static class DependencyInjection
             // options.UseNpgsql(connectionString);
         });
 
-        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddSingleton(TimeProvider.System);
@@ -57,18 +50,7 @@ public static class DependencyInjection
         services.AddMemoryCache();
         services.AddScoped<ICacheService, CacheService>();
 
-        services.AddScoped<IUserContext, UserContext>();
-        services.AddScoped<IPermissionService, PermissionService>();
-        services.AddScoped<IJwtProvider, JwtProvider>();
-
-        services.ConfigureOptions<JwtBearerOptionsSetup>();
-
-        services
-            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer();
-
         services.AddAuthorization();
-        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         return services;
     }
