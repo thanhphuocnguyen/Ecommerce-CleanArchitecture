@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Domain.Shared;
+using Ecommerce.Domain.Shared.Results;
 
 namespace Ecommerce.WebAPI;
 

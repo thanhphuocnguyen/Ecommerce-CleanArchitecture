@@ -10,6 +10,4 @@ public sealed record CreateProductCommand(
     decimal ComparePrice,
     string Description,
     UserId CreatorId,
-    decimal? Discount) : ICommand
-{
-}
+    decimal? Discount) : ICommand;

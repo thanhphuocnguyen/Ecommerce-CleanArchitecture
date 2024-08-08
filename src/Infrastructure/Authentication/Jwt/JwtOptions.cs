@@ -1,4 +1,4 @@
-﻿namespace Ecommerce.Infrastructure.Authentication;
+﻿namespace Ecommerce.Infrastructure.Authentication.Jwt;
 
 public class JwtOptions
 {
@@ -7,4 +7,8 @@ public class JwtOptions
     public string Issuer { get; set; } = null!;
 
     public string Audience { get; set; } = null!;
+
+    public int ExpiryMinutes { get; set; }
+
+    public int RefreshTokenExpiryMinutes { get; set; }
 }

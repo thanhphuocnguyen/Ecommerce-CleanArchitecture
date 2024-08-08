@@ -3,7 +3,7 @@ using Ecommerce.Application.Behaviors;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application;
+namespace Ecommerce.Application.DependencyInjection;
 
 public static class DependencyInjection
 {

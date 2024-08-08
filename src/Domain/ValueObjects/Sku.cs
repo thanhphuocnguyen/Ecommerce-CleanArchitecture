@@ -1,6 +1,7 @@
 ﻿using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Primitives;
+using Ecommerce.Domain.Shared.Results;
 
 namespace Ecommerce.Domain.ValueObjects;
 

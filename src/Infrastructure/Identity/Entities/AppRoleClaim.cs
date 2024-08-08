@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Domain.Shared.Primitives;
 using Microsoft.AspNetCore.Identity;
 
-namespace Ecommerce.Infrastructure;
+namespace Ecommerce.Infrastructure.Identity.Entities;
 
 public class AppRoleClaim : IdentityRoleClaim<string>, IAuditableEntity
 {

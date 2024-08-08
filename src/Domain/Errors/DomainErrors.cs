@@ -1,66 +1,38 @@
-using Ecommerce.Domain.Shared;
+using Ecommerce.Domain.Shared.Results;
 
 namespace Ecommerce.Domain.Errors;
 
 public static class DomainErrors
 {
-    public static class User
+    public static class General
     {
-        public static readonly Error UserNotFound = Error.NotFound("user_not_found", "User not found.");
-        public static readonly Error UserAlreadyExists = Error.Conflict("user_already_exists", "User already exists.");
-        public static readonly Error InvalidCredentials = Error.Unauthorized("invalid_credentials", "Invalid credentials.");
-        public static readonly Error InvalidPassword = Error.InvalidValue("invalid_password", "Invalid password.");
-        public static readonly Error InvalidRole = Error.InvalidValue("invalid_role", "Invalid role.");
-        public static readonly Error RoleAlreadyExists = Error.Conflict("role_already_exists", "Role already exists.");
-        public static readonly Error RoleNotFound = Error.NotFound("role_not_found", "Role not found.");
+        public static Error ArgumentIsNull(string argumentName) => Error.InvalidValue("argument_is_null", $"Argument '{argumentName}' is null.");
+    }
 
-        public static class FirstName
+    public static class Identity
+    {
+        public static class Token
         {
-            public static readonly Error Empty = Error.InvalidValue("first_name_empty", "First name should not be empty.");
-            public static readonly Error MaxLength = Error.InvalidValue("first_name_max_length", "First name should not be longer than 256 characters.");
+            public static readonly Error InvalidEmailOrPassword = Error.InvalidValue("invalid_email_or_password", "Invalid email or password.");
+            public static readonly Error UserIsNotActive = Error.InvalidValue("user_is_not_active", "User is not active.");
+            public static readonly Error EmailNotConfirmed = Error.InvalidValue("email_not_confirmed", "Email is not confirmed.");
+            public static readonly Error InvalidRefreshToken = Error.InvalidValue("invalid_refresh_token", "Invalid refresh token.");
+            public static readonly Error UserNotFound = Error.NotFound("user_not_found", "User not found.");
+            public static readonly Error InvalidToken = Error.InvalidValue("invalid_token", "Invalid token.");
         }
 
-        public static class LastName
+        public static class User
         {
-            public static readonly Error Empty = Error.InvalidValue("last_name_empty", "Last name should not be empty.");
-            public static readonly Error MaxLength = Error.InvalidValue("last_name_max_length", "Last name should not be longer than 256 characters.");
-        }
-
-        public static class Username
-        {
-            public static readonly Error Empty = Error.InvalidValue("username_empty", "Username should not be empty.");
-            public static readonly Error MaxLength = Error.InvalidValue("username_max_length", "Username should not be longer than 256 characters.");
-        }
-
-        public static class ProfilePicture
-        {
-            public static readonly Error MaxLength = Error.InvalidValue("profile_picture_max_length", "Profile picture should not be longer than 256 characters.");
-        }
-
-        public static class Address
-        {
-            public static readonly Error AddressNotFound = Error.InvalidValue("address_not_found", "Address not found.");
-        }
-
-        public static class PhoneNumber
-        {
-            public static readonly Error PhoneNumberNotFound = Error.NotFound("phone_number_not_found", "Phone number not found.");
+            public static readonly Error UserNotFound = Error.NotFound("user_not_found", "User not found.");
         }
 
         public static class Role
         {
             public static readonly Error RoleNotFound = Error.NotFound("role_not_found", "Role not found.");
-        }
-
-        public static class Cart
-        {
-            public static readonly Error CartNotFound = Error.NotFound("cart_not_found", "Cart not found.");
-        }
-
-        public static class Email
-        {
-            public static readonly Error Empty = Error.InvalidValue("email_empty", "Email should not be empty.");
-            public static readonly Error EmailNotFound = Error.NotFound("email_not_found", "Email not found.");
+            public static readonly Error RolesNotFound = Error.NotFound("roles_not_found", "Roles not found.");
+            public static readonly Error RoleAlreadyExists = Error.Conflict("role_already_exists", "Role already exists.");
+            public static readonly Error RoleIsAssignedToUser = Error.Conflict("role_is_assigned_to_user", "Role is assigned to user.");
+            public static readonly Error RoleIsNotAssignedToUser = Error.Conflict("role_is_not_assigned_to_user", "Role is not assigned to user.");
         }
     }
 

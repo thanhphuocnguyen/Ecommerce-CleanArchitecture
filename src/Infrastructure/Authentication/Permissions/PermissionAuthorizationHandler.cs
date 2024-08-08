@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Domain.Exceptions;
 using Ecommerce.Infrastructure.Data;
-using Ecommerce.Infrastructure.Identity;
+using Ecommerce.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +22,12 @@ internal class PermissionAuthorizationHandler(
     {
         var userId = context.User.GetUserId();
 
-        var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+        if (userId is null)
+        {
+            new UnauthorizedException("Authentication Failed.");
+        }
+
+        var user = await _userManager.FindByIdAsync(userId!.Value.ToString());
         if (user is null)
         {
             new UnauthorizedException("Authentication Failed.");

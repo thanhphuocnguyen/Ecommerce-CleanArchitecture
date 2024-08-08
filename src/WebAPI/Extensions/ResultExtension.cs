@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Domain.Shared;
+using Ecommerce.Domain.Shared.Results;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 

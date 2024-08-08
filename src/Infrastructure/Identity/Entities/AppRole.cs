@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Ecommerce.Infrastructure;
+namespace Ecommerce.Infrastructure.Identity.Entities;
 
 public class AppRole : IdentityRole
 {

@@ -1,10 +1,11 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Ecommerce.Infrastructure.Authentication;
+namespace Ecommerce.Infrastructure.Authentication.Jwt;
 
 public class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
 {
@@ -26,6 +27,8 @@ public class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Secret)),
+            RoleClaimType = ClaimTypes.Role,
+            ClockSkew = TimeSpan.Zero,
         };
     }
 }

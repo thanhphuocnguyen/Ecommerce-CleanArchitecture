@@ -1,8 +1,9 @@
 ﻿using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Ecommerce.Infrastructure.Identity;
+namespace Ecommerce.Infrastructure.Identity.DependencyInjection;
 
 internal static class DependencyInjection
 {

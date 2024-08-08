@@ -1,13 +1,11 @@
-using Application;
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Carter;
-using Ecommerce.Infrastructure;
+using Ecommerce.Application.DependencyInjection;
+using Ecommerce.Infrastructure.DependencyInjection;
 using Ecommerce.WebAPI.Exceptions;
 using Ecommerce.WebAPI.Middleware;
 using Ecommerce.WebAPI.OpenApi;
-using Ecommerce.WebAPI.OptionsSetup;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.ConfigureOptions<JwtOptionsSetup>();
 
 builder.Services
     .AddApplication()
@@ -72,9 +68,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionHandler();
 app.UseSerilogRequestLogging();
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.MapControllers();
 

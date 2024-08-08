@@ -1,8 +1,6 @@
 ﻿using System.Data;
-using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Shared.Primitives;
-using Ecommerce.Infrastructure.Data.Repositories;
 using Ecommerce.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

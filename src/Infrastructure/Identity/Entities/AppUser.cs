@@ -2,14 +2,14 @@
 using Ecommerce.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace Ecommerce.Infrastructure.Identity;
+namespace Ecommerce.Infrastructure.Identity.Entities;
 
 public class AppUser : IdentityUser
 {
     [NotMapped]
     public new UserId Id
     {
-        get => new UserId(new Guid(base.Id));
+        get => new UserId(Guid.Parse(base.Id));
         private set => base.Id = value.Value.ToString();
     }
 
@@ -24,6 +24,4 @@ public class AppUser : IdentityUser
     public string? RefreshToken { get; set; }
 
     public DateTime RefreshTokenExpiryTime { get; set; }
-
-    public string? ObjectId { get; set; }
 }

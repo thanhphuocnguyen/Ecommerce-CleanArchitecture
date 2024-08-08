@@ -2,7 +2,7 @@
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Repositories;
-using Ecommerce.Domain.Shared;
+using Ecommerce.Domain.Shared.Results;
 
 namespace Ecommerce.Application.Products.Commands.CreateProduct;
 

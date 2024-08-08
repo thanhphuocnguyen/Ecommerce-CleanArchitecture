@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Primitives;
+using Ecommerce.Domain.Shared.Results;
 using Ecommerce.Domain.ValueObjects;
 
 namespace Ecommerce.Domain.Entities;

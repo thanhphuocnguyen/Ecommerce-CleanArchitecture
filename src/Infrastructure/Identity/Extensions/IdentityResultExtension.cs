@@ -1,16 +1,15 @@
 ﻿using Ecommerce.Domain.Shared;
+using Ecommerce.Domain.Shared.Results;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Localization;
 
-namespace Ecommerce.Infrastructure.Identity;
+namespace Ecommerce.Infrastructure.Identity.Extensions;
 
 public static class IdentityResultExtension
 {
-    public static Result GetErrors(this IdentityResult result, IStringLocalizer t)
+    public static Error[] GetErrors(this IdentityResult result)
     {
-        var errors = result.Errors
-            .Select(e => Error.InvalidValue("Identity Erros", t[e.Description].ToString()))
+        return result.Errors
+            .Select(e => Error.InvalidValue("Identity Errors", e.Description))
             .ToArray();
-        return ValidationResult.WithErrors(errors);
     }
 }
