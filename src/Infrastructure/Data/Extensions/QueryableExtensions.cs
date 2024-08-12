@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Infrastructure;
+namespace Ecommerce.Infrastructure.Data.Extensions;
 
 internal static class QueryableExtensions
 {

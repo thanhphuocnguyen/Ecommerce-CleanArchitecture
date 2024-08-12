@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Application;
 using Ecommerce.Application.Behaviors;
+using Ecommerce.Application.Common.Events;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,8 @@ public static class DependencyInjection
             config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
             config.AddOpenBehavior(typeof(TransactionalPipelineBehavior<,>));
         });
+
+        services.AddTransient<IEventPublisher, EventPublisher>();
 
         services.AddValidatorsFromAssembly(assembly);
         return services;

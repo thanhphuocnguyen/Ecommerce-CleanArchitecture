@@ -1,5 +1,11 @@
-﻿using Ecommerce.Infrastructure.Data;
+﻿using Ecommerce.Application.Identity.Interface;
+using Ecommerce.Application.Identity.Roles;
+using Ecommerce.Application.Identity.Tokens;
+using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Identity.Entities;
+using Ecommerce.Infrastructure.Identity.Roles;
+using Ecommerce.Infrastructure.Identity.Tokens;
+using Ecommerce.Infrastructure.Identity.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +26,11 @@ internal static class DependencyInjection
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
+
+        services.AddTransient<ITokenService, TokenService>();
+        services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IRoleService, RoleService>();
+
         return services;
     }
 }

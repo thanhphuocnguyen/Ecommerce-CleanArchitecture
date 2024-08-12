@@ -1,20 +1,22 @@
-﻿namespace Ecommerce.Application.Identity.Roles;
+﻿using Ecommerce.Domain.Shared.Results;
+
+namespace Ecommerce.Application.Identity.Roles;
 
 public interface IRoleService
 {
-    Task<List<RoleDto>> GetListAsync(CancellationToken cancellationToken);
+    Task<Result<List<RoleDto>>> GetListAsync(CancellationToken cancellationToken);
 
-    Task<int> GetCountAsync(CancellationToken cancellationToken);
+    Task<Result<int>> GetCountAsync(CancellationToken cancellationToken);
 
-    Task<bool> ExistsAsync(string roleName, string? excludeId);
+    Task<Result<bool>> ExistsAsync(string roleName, string? excludeId);
 
-    Task<RoleDto> GetByIdAsync(string id);
+    Task<Result<RoleDto>> GetByIdAsync(string id);
 
-    Task<RoleDto> GetByIdWithPermissionsAsync(string roleId, CancellationToken cancellationToken);
+    Task<Result<RoleDto>> GetByIdWithPermissionsAsync(string roleId, CancellationToken cancellationToken);
 
-    Task<string> CreateOrUpdateAsync(CreateOrUpdateRoleRequest request);
+    Task<Result<string>> CreateOrUpdateAsync(CreateOrUpdateRoleRequest request);
 
-    Task<string> UpdatePermissionsAsync(UpdateRolePermissionsRequest request, CancellationToken cancellationToken);
+    Task<Result<string>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request, CancellationToken cancellationToken);
 
-    Task<string> DeleteAsync(string id);
+    Task<Result<string>> DeleteAsync(string id);
 }

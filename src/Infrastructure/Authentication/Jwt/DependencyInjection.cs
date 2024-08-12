@@ -5,13 +5,15 @@ namespace Ecommerce.Infrastructure.Authentication.Jwt;
 
 internal static class DependencyInjection
 {
-    internal static IServiceCollection AddJwt(this IServiceCollection services)
+    public static IServiceCollection AddJwt(this IServiceCollection services)
     {
         services.ConfigureOptions<JwtOptionsSetup>();
         services.ConfigureOptions<JwtBearerOptionsSetup>();
+
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();
+
         return services;
     }
 }

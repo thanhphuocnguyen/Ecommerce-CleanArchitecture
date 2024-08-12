@@ -6,10 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace Infrastructure;
+namespace Ecommerce.Infrastructure.BackgroundJobs.Jobs;
 
 [DisallowConcurrentExecution]
-internal class ProcessOutboxMessagesJob(ApplicationDbContext dbContext, TimeProvider timeProvider, IPublisher publisher)
+internal class ProcessOutboxMessagesJob(
+    ApplicationDbContext dbContext,
+    TimeProvider timeProvider,
+    IPublisher publisher)
     : IJob
 {
     private readonly ApplicationDbContext _dbContext = dbContext;

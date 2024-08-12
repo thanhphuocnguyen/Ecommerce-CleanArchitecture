@@ -39,16 +39,18 @@ internal partial class UserService
         };
 
         // TODO:
-        // if (!string.IsNullOrEmpty(user.Email))
-        // {
-        //     string emailVerificationUri = await GetEmailVerificationUriAsync(user, origin);
-        //     var eMailModel = new RegisterUserEmailModel(user.Email, user.UserName, emailVerificationUri);
-        //     var mailRequest = new SendEmailRequest(new List<string> { user.Email },
-        //         "Confirm Registration",
-        //         _templateService.GenerateEmailTemplate("email-confirmation", eMailModel));
-        //     _jobService.Enqueue(() => _mailService.SendAsync(mailRequest, CancellationToken.None));
-        //     messages.Add(_t[$"Please check {user.Email} to verify your account!"]);
-        // }
+        /* if (!string.IsNullOrEmpty(user.Email))
+        {
+            string emailVerificationUri = await GetEmailVerificationUriAsync(user, origin);
+            var eMailModel = new RegisterUserEmailModel(user.Email, user.UserName, emailVerificationUri);
+            var mailRequest = new SendEmailRequest(
+                new List<string> { user.Email },
+                "Confirm Registration",
+                _templateService.GenerateEmailTemplate("email-confirmation", eMailModel));
+            _jobService.Enqueue(() => _mailService.SendEmailAsync(mailRequest, CancellationToken.None));
+            messages.Add($"Please check {user.Email} to verify your account!");
+         } */
+
         return Result<string>.Success(string.Join(Environment.NewLine, messages));
     }
 

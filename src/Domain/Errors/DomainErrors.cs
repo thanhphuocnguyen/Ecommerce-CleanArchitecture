@@ -24,6 +24,11 @@ public static class DomainErrors
         public static class User
         {
             public static readonly Error UserNotFound = Error.NotFound("user_not_found", "User not found.");
+            public static readonly Error UserAlreadyExists = Error.Conflict("user_already_exists", "User already exists.");
+            public static readonly Error UserIsNotActive = Error.InvalidValue("user_is_not_active", "User is not active.");
+            public static readonly Error EmailNotConfirmed = Error.InvalidValue("email_not_confirmed", "Email is not confirmed.");
+            public static readonly Error PhoneNumberNotProvided = Error.InvalidValue("phone_number_not_provided", "Phone number is not provided.");
+            public static readonly Error InvalidPhoneNumberConfirmationCode = Error.InvalidValue("invalid_phone_number_confirmation_code", "Invalid phone number confirmation code.");
         }
 
         public static class Role
@@ -33,6 +38,10 @@ public static class DomainErrors
             public static readonly Error RoleAlreadyExists = Error.Conflict("role_already_exists", "Role already exists.");
             public static readonly Error RoleIsAssignedToUser = Error.Conflict("role_is_assigned_to_user", "Role is assigned to user.");
             public static readonly Error RoleIsNotAssignedToUser = Error.Conflict("role_is_not_assigned_to_user", "Role is not assigned to user.");
+            public static readonly Error DefaultRoleCannotBeUpdated = Error.InvalidValue("default_role_cannot_be_updated", "Default role cannot be updated.");
+            public static readonly Error DefaultRoleCannotBeDeleted = Error.InvalidValue("default_role_cannot_be_deleted", "Default role cannot be deleted.");
+            public static readonly Error RoleIsAssignedToDefaultUser = Error.InvalidValue("role_is_assigned_to_default_user", "Role is assigned to default user.");
+            public static readonly Error RoleHasUsers = Error.InvalidValue("role_has_users", "Role has users.");
         }
     }
 
@@ -52,20 +61,6 @@ public static class DomainErrors
     {
         public static readonly Error CategoryNotFound = Error.NotFound("Category.category_not_found", "Category not found.");
         public static readonly Error CategoryAlreadyExists = Error.Conflict("Category.category_already_exists", "Category already exists.");
-    }
-
-    public static class Role
-    {
-        public static readonly Error RoleNotFound = Error.NotFound("role_not_found", "Role not found.");
-        public static readonly Error RoleAlreadyExists = Error.Conflict("role_already_exists", "Role already exists.");
-        public static readonly Error RoleIsAssignedToUser = Error.Conflict("role_is_assigned_to_user", "Role is assigned to user.");
-        public static readonly Error RoleIsNotAssignedToUser = Error.Conflict("role_is_not_assigned_to_user", "Role is not assigned to user.");
-    }
-
-    public static class Permission
-    {
-        public static readonly Error PermissionNotFound = Error.NotFound("permission_not_found", "Permission not found.");
-        public static readonly Error PermissionAlreadyExists = Error.Conflict("permission_already_exists", "Permission already exists.");
     }
 
     public static class Customer

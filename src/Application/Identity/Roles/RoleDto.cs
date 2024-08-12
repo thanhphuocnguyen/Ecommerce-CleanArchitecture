@@ -8,5 +8,5 @@ public record RoleDto
 
     public string? Description { get; set; }
 
-    public List<string>? Permissions { get; set; }
+    public List<string>? Permissions { get; set; } = new List<string>();
 }
