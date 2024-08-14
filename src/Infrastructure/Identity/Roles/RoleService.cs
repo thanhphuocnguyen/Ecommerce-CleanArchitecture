@@ -7,11 +7,10 @@ using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Identity;
 using Ecommerce.Domain.Shared.Results;
 using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Data.Extensions;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Extensions;
-using Infrastructure.Data.Extensions;
 using Mapster;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -130,8 +129,7 @@ public class RoleService : IRoleService
         }
 
         role.Value.Permissions = await _dbContext.RoleClaims
-            .WhereIf(!string.IsNullOrEmpty(roleId), x => x.RoleId == roleId)
-            .Where(x => x.ClaimType == EClaims.Permission)
+            .Where(x => x.RoleId == roleId && x.ClaimType == EClaims.Permission)
             .Select(x => x.ClaimValue!)
             .ToListAsync(cancellationToken);
 

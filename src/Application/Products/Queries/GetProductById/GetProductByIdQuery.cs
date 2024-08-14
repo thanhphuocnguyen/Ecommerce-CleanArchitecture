@@ -1,5 +1,5 @@
 ﻿using Application.Products.Contracts;
-using Ecommerce.Application.Contracts;
+using Ecommerce.Application.Common.Queries;
 
 namespace Ecommerce.Application.Products.Queries.GetProductById;
 

@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Application.Common.Interfaces;
-using Ecommerce.Application.Contracts;
+using Ecommerce.Application.Common.Queries;
 using MediatR;
 
 namespace Ecommerce.Application.Behaviors;

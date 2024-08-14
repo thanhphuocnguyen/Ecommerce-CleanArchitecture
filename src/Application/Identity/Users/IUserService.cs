@@ -32,7 +32,7 @@ public interface IUserService
 
     Task<Result> InvalidatePermissionCacheAsync(UserId userId, CancellationToken cancellationToken);
 
-    Task ToggleStatusAsync(ToggleUserStatusRequest request, CancellationToken cancellationToken);
+    Task<Result> ToggleStatusAsync(ToggleUserStatusRequest request, CancellationToken cancellationToken);
 
     // Task<Result<string>> GetOrCreateFromPrincipalAsync(ClaimsPrincipal principal);
     Task<Result<string>> CreateAsync(CreateUserRequest request, string origin);

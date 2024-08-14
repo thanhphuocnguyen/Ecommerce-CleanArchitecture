@@ -29,6 +29,8 @@ public static class DomainErrors
             public static readonly Error EmailNotConfirmed = Error.InvalidValue("email_not_confirmed", "Email is not confirmed.");
             public static readonly Error PhoneNumberNotProvided = Error.InvalidValue("phone_number_not_provided", "Phone number is not provided.");
             public static readonly Error InvalidPhoneNumberConfirmationCode = Error.InvalidValue("invalid_phone_number_confirmation_code", "Invalid phone number confirmation code.");
+            public static readonly Error UserIdIsNotValid = Error.InvalidValue("user_id_is_not_valid", "User ID is not valid.");
+            public static readonly Error CannotChangeStatusOfAdmin = Error.InvalidValue("cannot_change_status_of_admin", "Cannot change status of admin.");
         }
 
         public static class Role

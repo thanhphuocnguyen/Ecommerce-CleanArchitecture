@@ -79,7 +79,7 @@ internal sealed class UnitOfWork(ApplicationDbContext dbContext, TimeProvider da
     }
 }
 
-internal static class Extensions
+internal static class UoWExtensions
 {
     public static bool HasChangedOwnedEntities(this EntityEntry entry) =>
         entry.References.Any(r =>

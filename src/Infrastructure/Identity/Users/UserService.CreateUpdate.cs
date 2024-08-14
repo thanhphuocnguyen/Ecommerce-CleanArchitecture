@@ -31,7 +31,7 @@ internal partial class UserService
             return ValidationResult<string>.WithErrors(result.GetErrors());
         }
 
-        await _userManager.AddToRoleAsync(user, Roles.User);
+        await _userManager.AddToRoleAsync(user, ERoles.User);
 
         var messages = new List<string>
         {

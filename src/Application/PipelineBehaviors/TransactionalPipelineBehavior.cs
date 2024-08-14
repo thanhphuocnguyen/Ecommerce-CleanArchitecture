@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using Ecommerce.Application.Contracts;
+using Ecommerce.Application.Common.Commands;
 using Ecommerce.Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;

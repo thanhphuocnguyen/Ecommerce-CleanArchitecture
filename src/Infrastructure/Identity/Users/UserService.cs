@@ -1,13 +1,17 @@
+using Ardalis.Specification.EntityFrameworkCore;
+using Ecommerce.Application.Common.Events;
 using Ecommerce.Application.Common.FileStorage;
 using Ecommerce.Application.Common.Interfaces;
 using Ecommerce.Application.Common.Mailing;
 using Ecommerce.Application.Identity.Interface;
 using Ecommerce.Application.Identity.Users.Contracts;
+using Ecommerce.Domain.DomainEvents.Identity;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Results;
 using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Data.Specifications;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -29,6 +33,7 @@ internal partial class UserService : IUserService
     private readonly ApplicationDbContext _dbContext;
     private readonly ICacheService _cacheService;
     private readonly ICacheKeyService _cacheKeys;
+    private readonly IEventPublisher _eventPublisher;
 
     public UserService(
         UserManager<AppUser> userManager,
@@ -39,7 +44,8 @@ internal partial class UserService : IUserService
         IMailService mailService,
         ApplicationDbContext dbContext,
         ICacheService cacheService,
-        ICacheKeyService cacheKeys)
+        ICacheKeyService cacheKeys,
+        IEventPublisher eventPublisher)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -50,6 +56,7 @@ internal partial class UserService : IUserService
         _dbContext = dbContext;
         _cacheService = cacheService;
         _cacheKeys = cacheKeys;
+        _eventPublisher = eventPublisher;
     }
 
     public async Task<bool> ExistsWithEmailAsync(string email, UserId? exceptId = null)
@@ -89,13 +96,46 @@ internal partial class UserService : IUserService
         return (await _userManager.Users.AsNoTracking().ToListAsync(cancellationToken)).Adapt<List<UserDetailsDto>>();
     }
 
-    public Task<PaginationResponse<UserDetailsDto>> SearchAsync(UserListFilter filter, CancellationToken cancellationToken)
+    public async Task<PaginationResponse<UserDetailsDto>> SearchAsync(UserListFilter filter, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var spec = new EntitiesByPaginationFilterSpec<AppUser>(filter);
+
+        var users = await _userManager.Users
+            .WithSpecification(spec)
+            .ProjectToType<UserDetailsDto>()
+            .ToListAsync(cancellationToken);
+
+        int count = await _userManager.Users.CountAsync(cancellationToken);
+
+        return new PaginationResponse<UserDetailsDto>(users, count, filter.Page, filter.PageSize);
     }
 
-    public Task ToggleStatusAsync(ToggleUserStatusRequest request, CancellationToken cancellationToken)
+    public async Task<Result> ToggleStatusAsync(ToggleUserStatusRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        if (request.UserId == null)
+        {
+            return Result.Failure(DomainErrors.Identity.User.UserIdIsNotValid);
+        }
+
+        var user = await _userManager.Users.Where(u => u.Id.Value == request.UserId.Value).FirstOrDefaultAsync(cancellationToken);
+
+        if (user == null)
+        {
+            return Result.Failure(DomainErrors.Identity.User.UserNotFound);
+        }
+
+        bool isAdmin = await _userManager.IsInRoleAsync(user, ERoles.Admin);
+
+        if (isAdmin)
+        {
+            return Result.Failure(DomainErrors.Identity.User.CannotChangeStatusOfAdmin);
+        }
+
+        user.IsActive = request.IsActive;
+
+        await _userManager.UpdateAsync(user);
+
+        await _eventPublisher.PublishAsync(new AppUserUpdated(user.Id.Value, user.UserName!));
+        return Result.Success();
     }
 }

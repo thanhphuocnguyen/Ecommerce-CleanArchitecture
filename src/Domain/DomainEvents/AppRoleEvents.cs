@@ -2,20 +2,22 @@ using Ecommerce.Domain.Shared.Primitives;
 
 namespace Ecommerce.Domain.DomainEvents;
 
-public class AppRoleEvents : DomainEvent
+#pragma warning disable SA1649 // File name should match first type name
+public class AppRoleEvent : DomainEvent
+#pragma warning restore SA1649 // File name should match first type name
 {
     public string RoleId { get; init; }
 
     public string RoleName { get; init; }
 
-    protected AppRoleEvents(string roleId, string roleName)
+    protected AppRoleEvent(string roleId, string roleName)
     {
         RoleId = roleId;
         RoleName = roleName;
     }
 }
 
-public class AppRoleCreated : AppRoleEvents
+public class AppRoleCreated : AppRoleEvent
 {
     public AppRoleCreated(string roleId, string roleName)
         : base(roleId, roleName)
@@ -23,7 +25,7 @@ public class AppRoleCreated : AppRoleEvents
     }
 }
 
-public class AppRoleUpdated : AppRoleEvents
+public class AppRoleUpdated : AppRoleEvent
 {
     public AppRoleUpdated(string roleId, string roleName)
         : base(roleId, roleName)
@@ -31,7 +33,7 @@ public class AppRoleUpdated : AppRoleEvents
     }
 }
 
-public class AppRoleDeleted : AppRoleEvents
+public class AppRoleDeleted : AppRoleEvent
 {
     public AppRoleDeleted(string roleId, string roleName)
         : base(roleId, roleName)

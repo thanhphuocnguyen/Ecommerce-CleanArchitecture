@@ -1,4 +1,5 @@
-﻿using Ecommerce.Domain.Shared.Primitives;
+﻿using Ecommerce.Application.Common.Events;
+using Ecommerce.Domain.Shared.Primitives;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Outbox;
 using MediatR;
@@ -12,12 +13,12 @@ namespace Ecommerce.Infrastructure.BackgroundJobs.Jobs;
 internal class ProcessOutboxMessagesJob(
     ApplicationDbContext dbContext,
     TimeProvider timeProvider,
-    IPublisher publisher)
+    IEventPublisher publisher)
     : IJob
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly TimeProvider _timeProvider = timeProvider;
-    private readonly IPublisher _publisher = publisher;
+    private readonly IEventPublisher _publisher = publisher;
 
     public async Task Execute(IJobExecutionContext context)
     {
@@ -38,7 +39,7 @@ internal class ProcessOutboxMessagesJob(
 
             try
             {
-                await _publisher.Publish(domainEvent, context.CancellationToken);
+                await _publisher.PublishAsync(domainEvent);
 
                 outboxMessage.ProcessedDate = _timeProvider.GetUtcNow();
 

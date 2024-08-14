@@ -1,4 +1,4 @@
-﻿using Ecommerce.Application.Contracts;
+﻿using Ecommerce.Application.Common.Commands;
 using Ecommerce.Domain.Entities;
 
 namespace Ecommerce.Application.Products.Commands.CreateProduct;
