@@ -11,7 +11,7 @@ public sealed class PaymentMethod : AggregateRoot<PaymentMethodId>, IAuditableEn
     private PaymentMethod(
         PaymentMethodId id,
         PaymentTypeId paymentTypeId,
-        UserId userId,
+        Guid userId,
         string provider,
         string cardNumber,
         string cardHolderName,
@@ -21,7 +21,7 @@ public sealed class PaymentMethod : AggregateRoot<PaymentMethodId>, IAuditableEn
     : base(id)
     {
         PaymentTypeId = paymentTypeId;
-        UserId = userId;
+        Guid = userId;
         Provider = provider;
         CardNumber = cardNumber;
         CardHolderName = cardHolderName;
@@ -30,7 +30,7 @@ public sealed class PaymentMethod : AggregateRoot<PaymentMethodId>, IAuditableEn
         IsDefault = isDefault;
     }
 
-    public UserId UserId { get; private set; } = default!;
+    public Guid Guid { get; private set; } = default!;
 
     public PaymentTypeId PaymentTypeId { get; private set; } = default!;
 
@@ -59,7 +59,7 @@ public sealed class PaymentMethod : AggregateRoot<PaymentMethodId>, IAuditableEn
 
     public static PaymentMethod Create(
         PaymentTypeId paymentTypeId,
-        UserId userId,
+        Guid userId,
         string provider,
         string cardNumber,
         string cardHolderName,

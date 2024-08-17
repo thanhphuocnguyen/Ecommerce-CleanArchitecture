@@ -11,9 +11,9 @@ namespace Ecommerce.Infrastructure.Identity.Users;
 /// </summary>
 internal partial class UserService
 {
-    public async Task<Result<List<string>>> GetPermissionsAsync(UserId userId, CancellationToken cancellationToken)
+    public async Task<Result<List<string>>> GetPermissionsAsync(Guid userId, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+        var user = await _userManager.FindByIdAsync(userId.ToString());
 
         if (user == null)
         {
@@ -35,14 +35,14 @@ internal partial class UserService
         return Result<List<string>>.Success(permissions.Distinct().ToList());
     }
 
-    public async Task<Result<bool>> HasPermissionAsync(UserId userId, string permission, CancellationToken cancellationToken = default)
+    public async Task<Result<bool>> HasPermissionAsync(Guid userId, string permission, CancellationToken cancellationToken = default)
     {
         var permissions = await GetPermissionsAsync(userId, cancellationToken);
 
         return permissions.IsSuccess && permissions.Value.Contains(permission);
     }
 
-    public Task<Result> InvalidatePermissionCacheAsync(UserId userId, CancellationToken cancellationToken)
+    public Task<Result> InvalidatePermissionCacheAsync(Guid userId, CancellationToken cancellationToken)
     {
         _cacheService.RemoveAsync(_cacheKeys.GetCacheKey(EClaims.Permission, userId), cancellationToken);
         return Task.FromResult(Result.Success());

@@ -54,9 +54,9 @@ internal partial class UserService
         return Result<string>.Success(string.Join(Environment.NewLine, messages));
     }
 
-    public async Task<Result> UpdateAsync(UpdateUserRequest request, UserId userId)
+    public async Task<Result> UpdateAsync(UpdateUserRequest request, Guid userId)
     {
-        var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+        var user = await _userManager.FindByIdAsync(userId.ToString());
         if (user == null)
         {
             return Result.Failure(DomainErrors.Identity.User.UserNotFound);

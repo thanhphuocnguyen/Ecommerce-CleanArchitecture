@@ -14,7 +14,7 @@ public sealed class Address : Entity<AddressId>
         string state,
         string country,
         string zipCode,
-        UserId userId,
+        Guid userId,
         string phoneNumber)
     : base(id)
     {
@@ -23,7 +23,7 @@ public sealed class Address : Entity<AddressId>
         State = state;
         Country = country;
         ZipCode = zipCode;
-        UserId = userId;
+        Guid = userId;
         PhoneNumber = phoneNumber;
     }
 
@@ -43,7 +43,7 @@ public sealed class Address : Entity<AddressId>
 
     public bool IsPrimary { get; private set; }
 
-    public UserId UserId { get; private set; } = null!;
+    public Guid Guid { get; private set; }
 
     public string PhoneNumber { get; private set; } = null!;
 

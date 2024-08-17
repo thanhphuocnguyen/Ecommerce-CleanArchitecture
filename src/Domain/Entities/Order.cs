@@ -17,7 +17,7 @@ public class Order : AggregateRoot<OrderId>, IAuditableEntity
 
     private Order(
         OrderId id,
-        UserId creatorId,
+        Guid creatorId,
         decimal price,
         int quantity)
     : base(id)
@@ -29,7 +29,7 @@ public class Order : AggregateRoot<OrderId>, IAuditableEntity
 
     public OrderStatus Status { get; private set; }
 
-    public UserId CreatorId { get; private set; } = null!;
+    public Guid CreatorId { get; private set; }
 
     public Money Total => _lineItems.Aggregate(Money.Zero("USD"), (total, item) => total.Add(item.Price));
 
@@ -44,7 +44,7 @@ public class Order : AggregateRoot<OrderId>, IAuditableEntity
     public DateTimeOffset? LastModified { get; set; }
 
     public static Result<Order> Create(
-        UserId creator,
+        Guid creator,
         decimal price,
         int quantity)
     {

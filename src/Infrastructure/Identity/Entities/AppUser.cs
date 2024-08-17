@@ -1,18 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Ecommerce.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Ecommerce.Infrastructure.Identity.Entities;
 
-public class AppUser : IdentityUser
+public class AppUser : IdentityUser<Guid>
 {
-    [NotMapped]
-    public new UserId Id
-    {
-        get => new UserId(Guid.Parse(base.Id));
-        private set => base.Id = value.Value.ToString();
-    }
-
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }

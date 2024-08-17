@@ -7,7 +7,14 @@ using Microsoft.EntityFrameworkCore;
 namespace Ecommerce.Infrastructure.Data;
 
 public sealed class ApplicationDbContext
-    : IdentityDbContext<AppUser, AppRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, AppRoleClaim, IdentityUserToken<string>>
+    : IdentityDbContext<AppUser,
+                        AppRole,
+                        Guid,
+                        IdentityUserClaim<Guid>,
+                        IdentityUserRole<Guid>,
+                        IdentityUserLogin<Guid>,
+                        AppRoleClaim,
+                        IdentityUserToken<Guid>>
 {
     public DbSet<Product> Products => Set<Product>();
 

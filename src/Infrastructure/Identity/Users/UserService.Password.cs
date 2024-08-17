@@ -19,9 +19,9 @@ internal partial class UserService
     /// <param name="request">The request containing the necessary information for changing the password.</param>
     /// <param name="userId">The ID of the user whose password needs to be changed.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public async Task<Result> ChangePasswordAsync(ChangePasswordRequest request, UserId userId)
+    public async Task<Result> ChangePasswordAsync(ChangePasswordRequest request, Guid userId)
     {
-        var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+        var user = await _userManager.FindByIdAsync(userId.ToString());
         if (user == null)
         {
             return Result.Failure(DomainErrors.Identity.User.UserNotFound);

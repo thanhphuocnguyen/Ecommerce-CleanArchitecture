@@ -6,11 +6,11 @@ namespace Ecommerce.Domain.DomainEvents;
 public class AppRoleEvent : DomainEvent
 #pragma warning restore SA1649 // File name should match first type name
 {
-    public string RoleId { get; init; }
+    public Guid RoleId { get; init; }
 
     public string RoleName { get; init; }
 
-    protected AppRoleEvent(string roleId, string roleName)
+    protected AppRoleEvent(Guid roleId, string roleName)
     {
         RoleId = roleId;
         RoleName = roleName;
@@ -19,7 +19,7 @@ public class AppRoleEvent : DomainEvent
 
 public class AppRoleCreated : AppRoleEvent
 {
-    public AppRoleCreated(string roleId, string roleName)
+    public AppRoleCreated(Guid roleId, string roleName)
         : base(roleId, roleName)
     {
     }
@@ -27,7 +27,7 @@ public class AppRoleCreated : AppRoleEvent
 
 public class AppRoleUpdated : AppRoleEvent
 {
-    public AppRoleUpdated(string roleId, string roleName)
+    public AppRoleUpdated(Guid roleId, string roleName)
         : base(roleId, roleName)
     {
     }
@@ -35,7 +35,7 @@ public class AppRoleUpdated : AppRoleEvent
 
 public class AppRoleDeleted : AppRoleEvent
 {
-    public AppRoleDeleted(string roleId, string roleName)
+    public AppRoleDeleted(Guid roleId, string roleName)
         : base(roleId, roleName)
     {
     }

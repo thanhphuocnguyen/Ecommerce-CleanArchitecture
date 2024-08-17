@@ -8,13 +8,13 @@ public class Cart : AggregateRoot<CartId>
     {
     }
 
-    private Cart(CartId id, UserId userId)
+    private Cart(CartId id, Guid userId)
     : base(id)
     {
-        UserId = userId;
+        Guid = userId;
     }
 
-    public UserId UserId { get; private set; } = default!;
+    public Guid Guid { get; private set; } = default!;
 
     public ICollection<CartItem> CartItems { get; private set; } = new List<CartItem>();
 
@@ -32,7 +32,7 @@ public class Cart : AggregateRoot<CartId>
         }
     }
 
-    public static Cart Create(UserId userId)
+    public static Cart Create(Guid userId)
     {
         return new Cart(new CartId(Guid.NewGuid()), userId);
     }

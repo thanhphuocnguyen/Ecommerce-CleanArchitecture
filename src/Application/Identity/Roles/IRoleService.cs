@@ -8,15 +8,15 @@ public interface IRoleService
 
     Task<Result<int>> GetCountAsync(CancellationToken cancellationToken);
 
-    Task<Result<bool>> ExistsAsync(string roleName, string? excludeId);
+    Task<Result<bool>> ExistsAsync(string roleName, Guid? excludeId);
 
-    Task<Result<RoleDto>> GetByIdAsync(string id);
+    Task<Result<RoleDto>> GetByIdAsync(Guid id);
 
-    Task<Result<RoleDto>> GetByIdWithPermissionsAsync(string roleId, CancellationToken cancellationToken);
+    Task<Result<RoleDto>> GetByIdWithPermissionsAsync(Guid roleId, CancellationToken cancellationToken);
 
-    Task<Result<string>> CreateOrUpdateAsync(CreateOrUpdateRoleRequest request);
+    Task<Result<Guid>> CreateOrUpdateAsync(CreateOrUpdateRoleRequest request);
 
-    Task<Result<string>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request, CancellationToken cancellationToken);
+    Task<Result<Guid>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request, CancellationToken cancellationToken);
 
-    Task<Result<string>> DeleteAsync(string id);
+    Task<Result<string>> DeleteAsync(Guid id);
 }

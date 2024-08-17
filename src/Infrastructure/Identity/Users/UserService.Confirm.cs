@@ -1,5 +1,4 @@
 using System.Text;
-using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared.Results;
 using Ecommerce.Infrastructure.Identity.Entities;
@@ -14,7 +13,7 @@ namespace Ecommerce.Infrastructure.Identity.Users;
 /// </summary>
 internal partial class UserService
 {
-    public async Task<Result<string>> ConfirmEmailAsync(UserId userId, string code, CancellationToken cancellationToken)
+    public async Task<Result<string>> ConfirmEmailAsync(Guid userId, string code, CancellationToken cancellationToken)
     {
         var user = await _userManager.Users
             .SingleOrDefaultAsync(u => u.Id == userId && !u.EmailConfirmed, cancellationToken);
@@ -35,7 +34,7 @@ internal partial class UserService
         return Result<string>.Success("Email confirmed successfully.");
     }
 
-    public async Task<Result<string>> ConfirmChangePhoneNumberAsync(UserId userId, string code)
+    public async Task<Result<string>> ConfirmChangePhoneNumberAsync(Guid userId, string code)
     {
         var user = await _userManager.Users
             .SingleOrDefaultAsync(u => u.Id == userId && !u.PhoneNumberConfirmed);
@@ -60,7 +59,7 @@ internal partial class UserService
         return Result<string>.Success("Phone number confirmed successfully.");
     }
 
-    public async Task<Result<string>> ConfirmPhoneAsync(UserId userId, string code, CancellationToken cancellationToken)
+    public async Task<Result<string>> ConfirmPhoneAsync(Guid userId, string code, CancellationToken cancellationToken)
     {
         var user = await _userManager.Users
             .SingleOrDefaultAsync(u => u.Id == userId && !u.PhoneNumberConfirmed, cancellationToken);
@@ -95,7 +94,7 @@ internal partial class UserService
         var endpointUri = new Uri(string.Concat(origin, "/", route));
         string verificationUri = QueryHelpers.AddQueryString(endpointUri.ToString(), "userId", user.Id.ToString());
         verificationUri = QueryHelpers.AddQueryString(verificationUri, "code", code);
-        verificationUri = QueryHelpers.AddQueryString(verificationUri, "userId", user.Id.Value.ToString());
+        verificationUri = QueryHelpers.AddQueryString(verificationUri, "userId", user.Id.ToString());
         return verificationUri;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Infrastructure.Identity.Entities;
 
-public class AppRole : IdentityRole
+public class AppRole : IdentityRole<Guid>
 {
     public AppRole(string name, string? description = null)
     : base(name)

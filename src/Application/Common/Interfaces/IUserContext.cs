@@ -7,7 +7,7 @@ public interface IUserContext
 {
     string? Name { get; }
 
-    UserId? GetUserId();
+    Guid? GetUserId();
 
     string? GetUserEmail();
 

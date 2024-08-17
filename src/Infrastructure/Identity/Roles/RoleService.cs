@@ -7,12 +7,12 @@ using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Identity;
 using Ecommerce.Domain.Shared.Results;
 using Ecommerce.Infrastructure.Data;
-using Ecommerce.Infrastructure.Data.Extensions;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Extensions;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Ecommerce.Infrastructure.Identity.Roles;
 
@@ -38,32 +38,32 @@ public class RoleService : IRoleService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<string>> CreateOrUpdateAsync(CreateOrUpdateRoleRequest request)
+    public async Task<Result<Guid>> CreateOrUpdateAsync(CreateOrUpdateRoleRequest request)
     {
-        if (string.IsNullOrEmpty(request.Id))
+        if (request.Id.IsNullOrEmpty())
         {
             var role = new AppRole(request.Name, request.Description);
             var result = await _roleManager.CreateAsync(role);
             if (!result.Succeeded)
             {
-                return ValidationResult<string>.WithErrors(result.GetErrors());
+                return ValidationResult<Guid>.WithErrors(result.GetErrors());
             }
 
             await _eventPublisher.PublishAsync(new AppRoleCreated(role.Id, role.Name!));
 
-            return Result<string>.Success(role.Id);
+            return role.Id;
         }
         else
         {
             var role = await _roleManager.FindByIdAsync(request.Id);
             if (role == null)
             {
-                return Result.Failure<string>(DomainErrors.Identity.Role.RoleNotFound);
+                return Result.Failure<Guid>(DomainErrors.Identity.Role.RoleNotFound);
             }
 
             if (ERoles.IsDefaultRole(role.Name!))
             {
-                return Result.Failure<string>(DomainErrors.Identity.Role.DefaultRoleCannotBeUpdated);
+                return Result.Failure<Guid>(DomainErrors.Identity.Role.DefaultRoleCannotBeUpdated);
             }
 
             role.Name = request.Name;
@@ -72,18 +72,18 @@ public class RoleService : IRoleService
             var result = await _roleManager.UpdateAsync(role);
             if (!result.Succeeded)
             {
-                return ValidationResult<string>.WithErrors(result.GetErrors());
+                return ValidationResult<Guid>.WithErrors(result.GetErrors());
             }
 
             await _eventPublisher.PublishAsync(new AppRoleUpdated(role.Id, role.Name!));
 
-            return Result<string>.Success(role.Id);
+            return role.Id;
         }
     }
 
-    public async Task<Result<string>> DeleteAsync(string id)
+    public async Task<Result<string>> DeleteAsync(Guid id)
     {
-        var role = await _roleManager.FindByIdAsync(id);
+        var role = await _roleManager.FindByIdAsync(id.ToString());
         if (role == null)
         {
             return Result.Failure<string>(DomainErrors.Identity.Role.RoleNotFound);
@@ -108,18 +108,18 @@ public class RoleService : IRoleService
 
         await _eventPublisher.PublishAsync(new AppRoleDeleted(role.Id, role.Name!));
 
-        return Result<string>.Success(role.Id);
+        return Result<string>.Success(role.Id.ToString());
     }
 
-    public async Task<Result<bool>> ExistsAsync(string roleName, string? excludeId) =>
+    public async Task<Result<bool>> ExistsAsync(string roleName, Guid? excludeId) =>
         await _roleManager.FindByNameAsync(roleName) is AppRole existingRole && existingRole.Id == excludeId;
 
-    public async Task<Result<RoleDto>> GetByIdAsync(string id) =>
+    public async Task<Result<RoleDto>> GetByIdAsync(Guid id) =>
         await _dbContext.Roles.SingleOrDefaultAsync(x => x.Id == id) is AppRole role
             ? Result<RoleDto>.Success(role.Adapt<RoleDto>())
             : Result.Failure<RoleDto>(DomainErrors.Identity.Role.RoleNotFound);
 
-    public async Task<Result<RoleDto>> GetByIdWithPermissionsAsync(string roleId, CancellationToken cancellationToken)
+    public async Task<Result<RoleDto>> GetByIdWithPermissionsAsync(Guid roleId, CancellationToken cancellationToken)
     {
         var role = await GetByIdAsync(roleId);
 
@@ -142,13 +142,13 @@ public class RoleService : IRoleService
     public async Task<Result<List<RoleDto>>> GetListAsync(CancellationToken cancellationToken) =>
         (await _roleManager.Roles.ToListAsync(cancellationToken)).Adapt<List<RoleDto>>();
 
-    public async Task<Result<string>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> UpdatePermissionsAsync(UpdateRolePermissionsRequest request, CancellationToken cancellationToken)
     {
-        var role = await _roleManager.FindByIdAsync(request.Id);
+        var role = await _roleManager.FindByIdAsync(request.Id.ToString());
 
         if (role == null)
         {
-            return Result.Failure<string>(DomainErrors.Identity.Role.RoleNotFound);
+            return Result.Failure<Guid>(DomainErrors.Identity.Role.RoleNotFound);
         }
 
         var currentClaims = await _roleManager.GetClaimsAsync(role);
@@ -158,7 +158,7 @@ public class RoleService : IRoleService
             var removeResult = await _roleManager.RemoveClaimAsync(role, claim);
             if (!removeResult.Succeeded)
             {
-                return ValidationResult<string>.WithErrors(removeResult.GetErrors());
+                return ValidationResult<Guid>.WithErrors(removeResult.GetErrors());
             }
         }
 
@@ -180,6 +180,6 @@ public class RoleService : IRoleService
 
         await _eventPublisher.PublishAsync(new AppRoleUpdated(role.Id, role.Name!));
 
-        return Result<string>.Success(role.Id);
+        return role.Id;
     }
 }

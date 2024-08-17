@@ -13,7 +13,7 @@ namespace Ecommerce.Infrastructure.Identity.Users;
 /// </summary>
 internal partial class UserService
 {
-    public async Task<Result> AssignRolesAsync(UserId userId, UserRolesRequest request, CancellationToken cancellationToken)
+    public async Task<Result> AssignRolesAsync(Guid userId, UserRolesRequest request, CancellationToken cancellationToken)
     {
         if (request is null)
         {
@@ -48,11 +48,11 @@ internal partial class UserService
         return Result.Success();
     }
 
-    public async Task<Result<List<UserRoleDto>>> GetRolesAsync(UserId userId, CancellationToken cancellationToken)
+    public async Task<Result<List<UserRoleDto>>> GetRolesAsync(Guid userId, CancellationToken cancellationToken)
     {
         var userRoles = new List<UserRoleDto>();
 
-        var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+        var user = await _userManager.FindByIdAsync(userId.ToString());
         if (user == null)
         {
             return Result.Failure<List<UserRoleDto>>(DomainErrors.Identity.User.UserNotFound);

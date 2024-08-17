@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Ecommerce.Infrastructure.Identity.Entities;
 
-public class AppRoleClaim : IdentityRoleClaim<string>, IAuditableEntity
+public class AppRoleClaim : IdentityRoleClaim<Guid>, IAuditableEntity
 {
     public DateTimeOffset Created { get; set; }
 

@@ -20,7 +20,7 @@ public sealed class Product : Entity<ProductId>
         Money discount,
         string description,
         Money comparePrice,
-        UserId creatorId)
+        Guid creatorId)
     : base(id)
     {
         Name = name;
@@ -54,7 +54,7 @@ public sealed class Product : Entity<ProductId>
 
     public bool IsOutOfStock => Stock == 0;
 
-    public UserId CreatorId { get; private set; } = default!;
+    public Guid CreatorId { get; private set; } = default!;
 
     public void SetStock(int stock)
     {
@@ -73,7 +73,7 @@ public sealed class Product : Entity<ProductId>
         string currency,
         string description,
         decimal comparePrice,
-        UserId creatorId,
+        Guid creatorId,
         decimal discount = 0)
     {
         var skuResult = Sku.Create(sku);

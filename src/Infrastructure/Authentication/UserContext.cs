@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Ecommerce.Application.Common.Interfaces;
-using Ecommerce.Domain.Entities;
 
 namespace Ecommerce.Infrastructure.Authentication;
 
@@ -10,9 +9,9 @@ internal class UserContext : IUserContext, IUserContextInitializer
 
     public string? Name => _user?.Identity?.Name;
 
-    private UserId? _userId = null;
+    private Guid? _userId = null;
 
-    public UserId? GetUserId() => IsAuthenticated() ? _user?.GetUserId() : _userId;
+    public Guid? GetUserId() => IsAuthenticated() ? _user?.GetUserId() : _userId;
 
     public string? GetUserEmail()
     {
@@ -43,7 +42,7 @@ internal class UserContext : IUserContext, IUserContextInitializer
             throw new InvalidOperationException("Cannot set current user id when user is already set");
         }
 
-        _userId = Guid.TryParse(userId, out var id) ? new UserId(id) : null;
+        _userId = Guid.TryParse(userId, out var id) ? id : null;
     }
 
     public void SetCurrentUser(ClaimsPrincipal user)
@@ -59,10 +58,10 @@ internal class UserContext : IUserContext, IUserContextInitializer
 
 internal static class ClaimsPrincipalExtensions
 {
-    public static UserId? GetUserId(this ClaimsPrincipal claimsPrincipal)
+    public static Guid? GetUserId(this ClaimsPrincipal claimsPrincipal)
     {
         var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
-        return Guid.TryParse(userId, out var id) ? new UserId(id) : null;
+        return Guid.TryParse(userId, out var id) ? id : null;
     }
 
     public static string? GetEmail(this ClaimsPrincipal claimsPrincipal)

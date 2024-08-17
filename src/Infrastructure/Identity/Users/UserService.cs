@@ -6,7 +6,6 @@ using Ecommerce.Application.Common.Mailing;
 using Ecommerce.Application.Identity.Interface;
 using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.DomainEvents.Identity;
-using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Results;
@@ -59,7 +58,7 @@ internal partial class UserService : IUserService
         _eventPublisher = eventPublisher;
     }
 
-    public async Task<bool> ExistsWithEmailAsync(string email, UserId? exceptId = null)
+    public async Task<bool> ExistsWithEmailAsync(string email, Guid? exceptId = null)
     {
         return await _userManager.FindByEmailAsync(email) is AppUser user && user.Id != exceptId;
     }
@@ -69,12 +68,12 @@ internal partial class UserService : IUserService
         return await _userManager.FindByNameAsync(name) is AppUser;
     }
 
-    public async Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, UserId? exceptId = null)
+    public async Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, Guid? exceptId = null)
     {
         return await _userManager.Users.AnyAsync(u => u.PhoneNumber == phoneNumber && u.Id != exceptId);
     }
 
-    public async Task<Result<UserDetailsDto>> GetAsync(UserId userId, CancellationToken cancellationToken)
+    public async Task<Result<UserDetailsDto>> GetAsync(Guid userId, CancellationToken cancellationToken)
     {
         var user = await _userManager.Users
             .AsNoTracking()
@@ -112,12 +111,12 @@ internal partial class UserService : IUserService
 
     public async Task<Result> ToggleStatusAsync(ToggleUserStatusRequest request, CancellationToken cancellationToken)
     {
-        if (request.UserId == null)
+        if (request.UserId == Guid.Empty)
         {
             return Result.Failure(DomainErrors.Identity.User.UserIdIsNotValid);
         }
 
-        var user = await _userManager.Users.Where(u => u.Id.Value == request.UserId.Value).FirstOrDefaultAsync(cancellationToken);
+        var user = await _userManager.Users.Where(u => u.Id == request.UserId).FirstOrDefaultAsync(cancellationToken);
 
         if (user == null)
         {
@@ -135,7 +134,7 @@ internal partial class UserService : IUserService
 
         await _userManager.UpdateAsync(user);
 
-        await _eventPublisher.PublishAsync(new AppUserUpdated(user.Id.Value, user.UserName!));
+        await _eventPublisher.PublishAsync(new AppUserUpdated(user.Id, user.UserName!));
         return Result.Success();
     }
 }

@@ -9,5 +9,5 @@ public sealed record CreateProductCommand(
     string Sku,
     decimal ComparePrice,
     string Description,
-    UserId CreatorId,
+    Guid CreatorId,
     decimal? Discount) : ICommand;

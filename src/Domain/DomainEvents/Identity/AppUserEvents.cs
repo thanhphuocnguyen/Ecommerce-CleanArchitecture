@@ -6,13 +6,13 @@ namespace Ecommerce.Domain.DomainEvents.Identity;
 public class AppUserEvent : DomainEvent
 #pragma warning restore SA1649 // File name should match first type name
 {
-    public Guid UserId { get; init; }
+    public Guid Guid { get; init; }
 
     public string UserName { get; init; }
 
     protected AppUserEvent(Guid userId, string userName)
     {
-        UserId = userId;
+        Guid = userId;
         UserName = userName;
     }
 }
