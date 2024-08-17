@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Ecommerce.Infrastructure.Identity.Users;
+using Microsoft.AspNetCore.Http;
 
 namespace Ecommerce.Infrastructure;
 

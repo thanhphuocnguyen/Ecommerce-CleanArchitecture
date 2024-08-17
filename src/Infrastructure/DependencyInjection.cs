@@ -1,11 +1,11 @@
-﻿using Ecommerce.Application.Common.Interfaces;
-using Ecommerce.Domain.Interfaces;
+﻿using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Infrastructure.Authentication;
 using Ecommerce.Infrastructure.BackgroundJobs;
 using Ecommerce.Infrastructure.Caching;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.Repositories;
+using Ecommerce.Infrastructure.FileStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +29,8 @@ public static class DependencyInjection
         });
         services
             .AddAuth()
+            .AddCaching()
+            .AddFileStorage()
             .AddBackgroundJobs();
 
         services.AddScoped<IProductRepository, ProductRepository>();
@@ -38,7 +40,6 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
 
         services.AddMemoryCache();
-        services.AddScoped<ICacheService, CacheService>();
 
         return services;
     }

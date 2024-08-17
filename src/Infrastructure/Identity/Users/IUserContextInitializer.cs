@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Ecommerce.Infrastructure;
+namespace Ecommerce.Infrastructure.Identity.Users;
 
 public interface IUserContextInitializer
 {

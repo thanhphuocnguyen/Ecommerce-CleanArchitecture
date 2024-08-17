@@ -2,7 +2,6 @@ using Ardalis.Specification.EntityFrameworkCore;
 using Ecommerce.Application.Common.Events;
 using Ecommerce.Application.Common.FileStorage;
 using Ecommerce.Application.Common.Interfaces;
-using Ecommerce.Application.Common.Mailing;
 using Ecommerce.Application.Identity.Interface;
 using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.DomainEvents.Identity;
@@ -26,9 +25,11 @@ internal partial class UserService : IUserService
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
+
+    // private readonly IJobService _jobService;
+    // private readonly IMailService _mailService;
     private readonly IFileStorageService _fileStorageService;
-    private readonly IJobService _jobService;
-    private readonly IMailService _mailService;
+
     private readonly ApplicationDbContext _dbContext;
     private readonly ICacheService _cacheService;
     private readonly ICacheKeyService _cacheKeys;
@@ -38,24 +39,22 @@ internal partial class UserService : IUserService
         UserManager<AppUser> userManager,
         RoleManager<AppRole> roleManager,
         SignInManager<AppUser> signInManager,
-        IFileStorageService fileStorageService,
-        IJobService jobService,
-        IMailService mailService,
         ApplicationDbContext dbContext,
         ICacheService cacheService,
         ICacheKeyService cacheKeys,
-        IEventPublisher eventPublisher)
+        IEventPublisher eventPublisher,
+        IFileStorageService fileStorageService)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _signInManager = signInManager;
         _fileStorageService = fileStorageService;
-        _jobService = jobService;
-        _mailService = mailService;
         _dbContext = dbContext;
         _cacheService = cacheService;
         _cacheKeys = cacheKeys;
         _eventPublisher = eventPublisher;
+
+        // _mailService = mailService;
     }
 
     public async Task<bool> ExistsWithEmailAsync(string email, Guid? exceptId = null)

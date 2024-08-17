@@ -2,6 +2,7 @@
 using Ecommerce.Infrastructure.Authentication.Jwt;
 using Ecommerce.Infrastructure.Authentication.Permissions;
 using Ecommerce.Infrastructure.Identity.DependencyInjection;
+using Ecommerce.Infrastructure.Identity.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

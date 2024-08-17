@@ -80,8 +80,7 @@ internal partial class UserService
             "Reset Password",
             "Please reset your password by clicking <a href=\"" + passwordResetUrl + "\">here</a>.");
 
-        _jobService.Enqueue(() => _mailService.SendEmailAsync(mailRequest, CancellationToken.None));
-
+        // _jobService.Enqueue(() => _mailService.SendEmailAsync(mailRequest, CancellationToken.None));
         return Result<string>.Success("Password reset link sent successfully.");
     }
 }
