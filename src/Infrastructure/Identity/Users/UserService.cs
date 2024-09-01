@@ -2,6 +2,7 @@ using Ardalis.Specification.EntityFrameworkCore;
 using Ecommerce.Application.Common.Events;
 using Ecommerce.Application.Common.FileStorage;
 using Ecommerce.Application.Common.Interfaces;
+using Ecommerce.Application.Common.Mailing;
 using Ecommerce.Application.Identity.Interface;
 using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.DomainEvents.Identity;
@@ -25,9 +26,7 @@ internal partial class UserService : IUserService
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
-
-    // private readonly IJobService _jobService;
-    // private readonly IMailService _mailService;
+    private readonly IMailService _mailService;
     private readonly IFileStorageService _fileStorageService;
 
     private readonly ApplicationDbContext _dbContext;
@@ -43,7 +42,8 @@ internal partial class UserService : IUserService
         ICacheService cacheService,
         ICacheKeyService cacheKeys,
         IEventPublisher eventPublisher,
-        IFileStorageService fileStorageService)
+        IFileStorageService fileStorageService,
+        IMailService mailService)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -53,8 +53,7 @@ internal partial class UserService : IUserService
         _cacheService = cacheService;
         _cacheKeys = cacheKeys;
         _eventPublisher = eventPublisher;
-
-        // _mailService = mailService;
+        _mailService = mailService;
     }
 
     public async Task<bool> ExistsWithEmailAsync(string email, Guid? exceptId = null)

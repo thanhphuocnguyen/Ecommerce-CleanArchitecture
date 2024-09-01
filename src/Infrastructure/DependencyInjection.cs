@@ -6,6 +6,7 @@ using Ecommerce.Infrastructure.Caching;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.Repositories;
 using Ecommerce.Infrastructure.FileStorage;
+using Ecommerce.Infrastructure.Mailing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,20 +28,19 @@ public static class DependencyInjection
 
             // options.UseNpgsql(connectionString);
         });
-        services
-            .AddAuth()
-            .AddCaching()
-            .AddFileStorage()
-            .AddBackgroundJobs();
 
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-
         services.AddSingleton(TimeProvider.System);
 
-        services.AddMemoryCache();
-
+        services
+            .AddAuth()
+            .AddCaching()
+            .AddFileStorage()
+            .AddMailingInfrastructure(configuration)
+            .AddMemoryCache()
+            .AddBackgroundJobs();
         return services;
     }
 
@@ -49,7 +49,6 @@ public static class DependencyInjection
         app.UseAuthentication();
         app.UseUserContext();
         app.UseAuthorization();
-
         return app;
     }
 }

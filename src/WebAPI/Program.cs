@@ -2,6 +2,7 @@ using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Carter;
 using Ecommerce.Application.DependencyInjection;
+using Ecommerce.Infrastructure.BackgroundJobs;
 using Ecommerce.Infrastructure.DependencyInjection;
 using Ecommerce.WebAPI.Exceptions;
 using Ecommerce.WebAPI.Middleware;
@@ -50,6 +51,8 @@ builder.Services.AddCarter();
 
 var app = builder.Build();
 
+await JobSchedulersSetup.StartOutboxScheduler(app);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -66,8 +69,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseExceptionHandler();
-app.UseSerilogRequestLogging();
+app
+    .UseExceptionHandler()
+    .UseSerilogRequestLogging()
+    .UseInfrastructure();
 
 app.MapControllers();
 
@@ -87,4 +92,4 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<RequestLogContextMiddleware>();
 
-app.Run();
+await app.RunAsync();

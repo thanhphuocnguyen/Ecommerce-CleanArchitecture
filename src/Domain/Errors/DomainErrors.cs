@@ -193,4 +193,11 @@ public static class DomainErrors
             public static readonly Error MaxLength = Error.InvalidValue("state_max_length", "State should not be longer than 256 characters.");
         }
     }
+
+    public static class FileStorage
+    {
+        public static readonly Error FileUploadRequestIsInvalid = Error.InvalidValue("file_upload_request_is_invalid", "File upload request is invalid.");
+        public static readonly Error FileExtensionIsInvalid = Error.InvalidValue("file_extension_is_invalid", "File extension is invalid.");
+        public static readonly Error FileNameIsInvalid = Error.InvalidValue("file_name_is_invalid", "File name is invalid.");
+    }
 }

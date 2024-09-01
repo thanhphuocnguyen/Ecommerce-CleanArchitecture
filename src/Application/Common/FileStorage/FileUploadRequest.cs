@@ -4,19 +4,26 @@ namespace Ecommerce.Application.Common.FileStorage;
 
 public class FileUploadRequest
 {
-    public string FileName { get; set; } = default!;
+    public string Name { get; set; } = default!;
 
-    public string ContentType { get; set; } = default!;
+    public string Extension { get; set; } = default!;
 
-    public byte[] Content { get; set; } = Array.Empty<byte>();
+    public string Data { get; set; } = default!;
 }
 
 public class FileUploadRequestValidator : AbstractValidator<FileUploadRequest>
 {
     public FileUploadRequestValidator()
     {
-        RuleFor(x => x.FileName).NotEmpty();
-        RuleFor(x => x.ContentType).NotEmpty();
-        RuleFor(x => x.Content).NotEmpty();
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .MaximumLength(255);
+
+        RuleFor(x => x.Extension)
+            .NotEmpty()
+            .MaximumLength(10);
+
+        RuleFor(x => x.Data)
+            .NotEmpty();
     }
 }

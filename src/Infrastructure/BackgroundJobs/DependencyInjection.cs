@@ -8,19 +8,12 @@ internal static class DependencyInjection
 {
     internal static IServiceCollection AddBackgroundJobs(this IServiceCollection services)
     {
-        services.AddQuartz(config =>
+        services.AddQuartz();
+        services.AddQuartzHostedService(opt =>
         {
-            var jobKey = new JobKey(nameof(ProcessOutboxMessagesJob));
-            config.AddJob<ProcessOutboxMessagesJob>(jobKey);
-
-            config.AddTrigger(trigger => trigger
-                .WithIdentity($"{jobKey.Name}.trigger")
-                .StartNow()
-                .WithSimpleSchedule(schedule => schedule
-                    .WithInterval(TimeSpan.FromSeconds(30))
-                    .RepeatForever())
-                .ForJob(jobKey));
+            opt.WaitForJobsToComplete = true;
         });
+
         return services;
     }
 }

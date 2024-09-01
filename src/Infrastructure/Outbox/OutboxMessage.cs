@@ -6,15 +6,14 @@ public sealed class OutboxMessage
 
     public DateTimeOffset OccurredOn { get; set; }
 
-    public required string Type { get; set; }
+    public string Type { get; set; } = null!;
 
-    public required string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     public DateTimeOffset? ProcessedDate { get; set; }
 
     public string? Error { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
     public OutboxMessage(Guid id, DateTime occurredOn, string type, string content)
     {
         Id = id;

@@ -1,8 +1,6 @@
-﻿using MediatR;
+﻿namespace Ecommerce.Domain.Shared.Primitives;
 
-namespace Ecommerce.Domain.Shared.Primitives;
-
-public interface IDomainEvent : INotification
+public interface IDomainEvent
 {
     Guid Id { get; }
 
