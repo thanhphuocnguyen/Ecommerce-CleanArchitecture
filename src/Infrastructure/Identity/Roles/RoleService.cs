@@ -5,7 +5,7 @@ using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Identity;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Extensions;

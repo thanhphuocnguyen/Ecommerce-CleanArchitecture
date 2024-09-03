@@ -1,4 +1,4 @@
-﻿namespace Ecommerce.Domain.Shared.Results;
+﻿namespace Ecommerce.Domain.Shared.Result;
 
 public interface IValidationResult
 {

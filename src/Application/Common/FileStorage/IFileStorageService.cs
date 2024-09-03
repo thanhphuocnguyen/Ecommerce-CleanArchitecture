@@ -1,5 +1,5 @@
 using Ecommerce.Domain.Shared;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 
 namespace Ecommerce.Application.Common.FileStorage;
 

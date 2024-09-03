@@ -1,4 +1,4 @@
-﻿using Ecommerce.Domain.Shared.Results;
+﻿using Ecommerce.Domain.Shared.Result;
 using MediatR;
 
 namespace Ecommerce.Application.Common.Queries;

@@ -2,7 +2,7 @@ using Ecommerce.Application.Common.Mailing;
 using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Identity.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -75,12 +75,12 @@ internal partial class UserService
         var endpointUri = new Uri($"{origin}/{route}");
 
         string passwordResetUrl = QueryHelpers.AddQueryString(endpointUri.ToString(), "token", code);
-        var mailRequest = new MailRequest(
+        var mailRequest = new SendMailRequest(
             new List<string> { request.Email },
             "Reset Password",
             "Please reset your password by clicking <a href=\"" + passwordResetUrl + "\">here</a>.");
 
-        // _jobService.Enqueue(() => _mailService.SendEmailAsync(mailRequest, CancellationToken.None));
+        await _mailService.SendEmailAsync(mailRequest, CancellationToken.None);
         return Result<string>.Success("Password reset link sent successfully.");
     }
 }

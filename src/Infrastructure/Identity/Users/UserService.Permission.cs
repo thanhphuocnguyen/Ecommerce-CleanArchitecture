@@ -1,7 +1,7 @@
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared.Identity;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Identity.Users;

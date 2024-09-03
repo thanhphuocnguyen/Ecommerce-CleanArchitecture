@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Domain.Shared;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;

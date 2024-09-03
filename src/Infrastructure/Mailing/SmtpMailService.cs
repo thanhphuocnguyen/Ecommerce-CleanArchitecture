@@ -18,7 +18,7 @@ public class SmtpMailService : IMailService
         _logger = logger;
     }
 
-    public async Task SendEmailAsync(MailRequest request, CancellationToken cancellationToken)
+    public async Task SendEmailAsync(SendMailRequest request, CancellationToken cancellationToken)
     {
         try
         {

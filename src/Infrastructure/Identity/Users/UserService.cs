@@ -8,7 +8,7 @@ using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.DomainEvents.Identity;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.Data.Specifications;
 using Ecommerce.Infrastructure.Identity.Entities;
@@ -27,8 +27,8 @@ internal partial class UserService : IUserService
     private readonly RoleManager<AppRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly IMailService _mailService;
+    private readonly IEmailTemplateService _templateService;
     private readonly IFileStorageService _fileStorageService;
-
     private readonly ApplicationDbContext _dbContext;
     private readonly ICacheService _cacheService;
     private readonly ICacheKeyService _cacheKeys;
@@ -43,7 +43,8 @@ internal partial class UserService : IUserService
         ICacheKeyService cacheKeys,
         IEventPublisher eventPublisher,
         IFileStorageService fileStorageService,
-        IMailService mailService)
+        IMailService mailService,
+        IEmailTemplateService templateService)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -54,6 +55,7 @@ internal partial class UserService : IUserService
         _cacheKeys = cacheKeys;
         _eventPublisher = eventPublisher;
         _mailService = mailService;
+        _templateService = templateService;
     }
 
     public async Task<bool> ExistsWithEmailAsync(string email, Guid? exceptId = null)
@@ -93,7 +95,7 @@ internal partial class UserService : IUserService
         return (await _userManager.Users.AsNoTracking().ToListAsync(cancellationToken)).Adapt<List<UserDetailsDto>>();
     }
 
-    public async Task<PaginationResponse<UserDetailsDto>> SearchAsync(UserListFilter filter, CancellationToken cancellationToken)
+    public async Task<Result<PaginationResponse<UserDetailsDto>>> SearchAsync(UserListFilter filter, CancellationToken cancellationToken)
     {
         var spec = new EntitiesByPaginationFilterSpec<AppUser>(filter);
 

@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Ecommerce.Application.Identity.Tokens;
 using Ecommerce.Domain.Errors;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Authentication;
 using Ecommerce.Infrastructure.Authentication.Jwt;
 using Ecommerce.Infrastructure.Identity.Entities;

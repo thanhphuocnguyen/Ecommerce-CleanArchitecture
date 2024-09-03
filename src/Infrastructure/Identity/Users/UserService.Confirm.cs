@@ -1,6 +1,6 @@
 using System.Text;
 using Ecommerce.Domain.Errors;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Extensions;
 using Microsoft.AspNetCore.WebUtilities;

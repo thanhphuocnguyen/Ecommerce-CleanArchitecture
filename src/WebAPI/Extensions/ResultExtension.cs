@@ -1,6 +1,4 @@
-﻿using Ecommerce.Domain.Shared;
-using Ecommerce.Domain.Shared.Results;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Ecommerce.Domain.Shared.Result;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.WebAPI.Exceptions;

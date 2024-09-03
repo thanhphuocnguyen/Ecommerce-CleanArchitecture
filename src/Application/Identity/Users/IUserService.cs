@@ -2,23 +2,23 @@
 using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Shared;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 
 namespace Ecommerce.Application.Identity.Interface;
 
 public interface IUserService
 {
-    Task<PaginationResponse<UserDetailsDto>> SearchAsync(UserListFilter filter, CancellationToken cancellationToken);
+    Task<Result<PaginationResponse<UserDetailsDto>>> SearchAsync(UserListFilter filter, CancellationToken cancellationToken);
 
-    Task<bool> ExistsWithNameAsync(string name);
+    Task<Result> ExistsWithNameAsync(string name);
 
-    Task<bool> ExistsWithEmailAsync(string email, Guid? exceptId = null);
+    Task<Result> ExistsWithEmailAsync(string email, Guid? exceptId = null);
 
-    Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, Guid? exceptId = null);
+    Task<Result> ExistsWithPhoneNumberAsync(string phoneNumber, Guid? exceptId = null);
 
     Task<List<UserDetailsDto>> GetListAsync(CancellationToken cancellationToken);
 
-    Task<int> GetCountAsync(CancellationToken cancellationToken);
+    Task<Result<int>> GetCountAsync(CancellationToken cancellationToken);
 
     Task<Result<UserDetailsDto>> GetAsync(Guid userId, CancellationToken cancellationToken);
 

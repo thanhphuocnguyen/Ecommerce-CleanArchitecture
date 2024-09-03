@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Domain.Enums;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Primitives;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Domain.ValueObjects;
 
 namespace Ecommerce.Domain.Entities;

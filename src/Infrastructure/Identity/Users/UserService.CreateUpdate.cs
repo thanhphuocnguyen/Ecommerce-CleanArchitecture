@@ -1,10 +1,12 @@
+using Ecommerce.Application.Common.Mailing;
 using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
-using Ecommerce.Domain.Shared.Results;
+using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Extensions;
+using Ecommerce.Infrastructure.Identity.Models;
 
 namespace Ecommerce.Infrastructure.Identity.Users;
 
@@ -38,18 +40,17 @@ internal partial class UserService
             string.Format("User {0} Registered.", user.UserName)
         };
 
-        // TODO:
-        /* if (!string.IsNullOrEmpty(user.Email))
+        if (!string.IsNullOrEmpty(user.Email))
         {
             string emailVerificationUri = await GetEmailVerificationUriAsync(user, origin);
             var eMailModel = new RegisterUserEmailModel(user.Email, user.UserName, emailVerificationUri);
-            var mailRequest = new SendEmailRequest(
-                [ user.Email ],
+            var mailRequest = new SendMailRequest(
+                [user.Email],
                 "Confirm Registration",
                 _templateService.GenerateEmailTemplate("email-confirmation", eMailModel));
-            _jobService.Enqueue(() => _mailService.SendEmailAsync(mailRequest, CancellationToken.None));
+            await _mailService.SendEmailAsync(mailRequest, CancellationToken.None);
             messages.Add($"Please check {user.Email} to verify your account!");
-         } */
+        }
 
         return Result<string>.Success(string.Join(Environment.NewLine, messages));
     }

@@ -48,7 +48,7 @@ internal class UserContext : IUserContext, IUserContextInitializer
 
     public void SetCurrentUser(ClaimsPrincipal user)
     {
-        if (user != null)
+        if (_user != null)
         {
             throw new InvalidOperationException("Cannot set current user when user id is already set");
         }
