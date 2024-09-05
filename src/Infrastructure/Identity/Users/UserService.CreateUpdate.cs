@@ -1,6 +1,5 @@
 using Ecommerce.Application.Common.Mailing;
 using Ecommerce.Application.Identity.Users.Contracts;
-using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;

@@ -1,7 +1,6 @@
-using System;
 using Ecommerce.Domain.Shared;
 
-namespace Ecommerce.Infrastructure.Data.Specifications;
+namespace Ecommerce.Infrastructure.Persistence.Specifications;
 
 public class EntitiesByPaginationFilterSpec<T, TResult> : EntitiesByBaseFilterSpec<T, TResult>
 {

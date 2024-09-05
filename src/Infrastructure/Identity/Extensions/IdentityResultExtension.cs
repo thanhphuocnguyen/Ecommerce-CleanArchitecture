@@ -1,5 +1,4 @@
-﻿using Ecommerce.Domain.Shared;
-using Ecommerce.Domain.Shared.Result;
+﻿using Ecommerce.Domain.Shared.Result;
 using Microsoft.AspNetCore.Identity;
 
 namespace Ecommerce.Infrastructure.Identity.Extensions;

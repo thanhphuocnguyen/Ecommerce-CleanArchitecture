@@ -1,8 +1,7 @@
 ﻿using Ecommerce.Application.Common.Events;
 using Ecommerce.Domain.Shared.Primitives;
-using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Outbox;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;

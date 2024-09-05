@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecommerce.Infrastructure.Data;
+namespace Ecommerce.Infrastructure.Persistence;
 
 public sealed class ApplicationDbContext
     : IdentityDbContext<AppUser,

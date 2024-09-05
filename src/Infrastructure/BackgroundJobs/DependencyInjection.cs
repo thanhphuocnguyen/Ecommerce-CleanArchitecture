@@ -1,4 +1,3 @@
-using Ecommerce.Infrastructure.BackgroundJobs.Jobs;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 

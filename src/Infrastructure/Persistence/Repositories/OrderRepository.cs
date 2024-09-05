@@ -2,7 +2,7 @@
 using Ecommerce.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecommerce.Infrastructure.Data.Repositories;
+namespace Ecommerce.Infrastructure.Persistence.Repositories;
 
 internal class OrderRepository(ApplicationDbContext dbContext) : IOrderRepository
 {

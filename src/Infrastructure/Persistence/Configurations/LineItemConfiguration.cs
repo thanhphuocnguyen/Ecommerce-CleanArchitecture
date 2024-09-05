@@ -3,7 +3,7 @@ using Ecommerce.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Ecommerce.Infrastructure.Data.Configurations;
+namespace Ecommerce.Infrastructure.Persistence.Configurations;
 
 public class LineItemConfiguration : IEntityTypeConfiguration<LineItem>
 {

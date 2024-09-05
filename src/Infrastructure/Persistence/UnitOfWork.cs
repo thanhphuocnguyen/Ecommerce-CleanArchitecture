@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Newtonsoft.Json;
 
-namespace Ecommerce.Infrastructure.Data;
+namespace Ecommerce.Infrastructure.Persistence;
 
 internal sealed class UnitOfWork(ApplicationDbContext dbContext, TimeProvider dateTime) : IUnitOfWork
 {

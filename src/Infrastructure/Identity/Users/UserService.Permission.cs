@@ -1,4 +1,3 @@
-using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared.Identity;
 using Ecommerce.Domain.Shared.Result;

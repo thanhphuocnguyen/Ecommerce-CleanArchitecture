@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Ecommerce.Infrastructure.Data.Migrations
+namespace Ecommerce.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitDatabase : Migration

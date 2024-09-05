@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using Ecommerce.Application.Common.Mailing;
 using RazorEngineCore;

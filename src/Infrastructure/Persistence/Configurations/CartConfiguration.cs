@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Ecommerce.Infrastructure.Data.Configurations;
+namespace Ecommerce.Infrastructure.Persistence.Configurations;
 
 public class CartConfiguration : IEntityTypeConfiguration<Cart>
 {

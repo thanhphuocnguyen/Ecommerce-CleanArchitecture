@@ -4,7 +4,7 @@ using System.Text.Json;
 using Ardalis.Specification;
 using Ecommerce.Domain.Shared;
 
-namespace Ecommerce.Infrastructure.Data.Specifications;
+namespace Ecommerce.Infrastructure.Persistence.Specifications;
 
 public static class SpecificationBuilderExtensions
 {

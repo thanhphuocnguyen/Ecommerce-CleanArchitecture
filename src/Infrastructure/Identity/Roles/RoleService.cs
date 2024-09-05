@@ -6,7 +6,7 @@ using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Identity;
 using Ecommerce.Domain.Shared.Result;
-using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Extensions;
 using Mapster;
