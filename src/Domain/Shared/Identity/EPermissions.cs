@@ -10,7 +10,6 @@ public static class EPermissions
         new EPermission("Delete products", EAction.Delete, Resource.Product),
         new EPermission("Export products", EAction.Export, Resource.Product),
         new EPermission("Generate products", EAction.Generate, Resource.Product),
-        new EPermission("Clean products", EAction.Clean, Resource.Product),
 
         new EPermission("View orders", EAction.View, Resource.Order, IsBasic: true),
         new EPermission("Search orders", EAction.Search, Resource.Order, IsBasic: true),
@@ -19,8 +18,8 @@ public static class EPermissions
         new EPermission("Delete orders", EAction.Delete, Resource.Order),
         new EPermission("Export orders", EAction.Export, Resource.Order),
 
-        new EPermission("View users", EAction.View, Resource.User, IsRoot: true),
-        new EPermission("Search users", EAction.Search, Resource.User, IsRoot: true),
+        new EPermission("View users", EAction.View, Resource.User, IsBasic: true),
+        new EPermission("Search users", EAction.Search, Resource.User, IsBasic: true),
         new EPermission("Create users", EAction.Create, Resource.User, IsBasic: true),
         new EPermission("Update users", EAction.Update, Resource.User, IsRoot: true),
         new EPermission("Delete users", EAction.Delete, Resource.User, IsRoot: true),
@@ -43,7 +42,9 @@ public static class EPermissions
 
     public static IReadOnlyList<EPermission> Basic => All.Where(p => p.IsBasic).ToList();
 
-    public static IReadOnlyList<EPermission> Root => All.Where(p => p.IsRoot).ToList();
+    public static IReadOnlyList<EPermission> Admin => All.Where(p => p.IsRoot).ToList();
+
+    public static IReadOnlyList<EPermission> Vendor => All.Where(p => !p.IsRoot).ToList();
 
     public static IReadOnlyList<EPermission> For(string resource) => All.Where(p => p.Resource == resource).ToList();
 

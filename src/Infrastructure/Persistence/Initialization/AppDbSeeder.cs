@@ -1,6 +1,3 @@
-using System;
-using System.Security.Claims;
-using Ecommerce.Domain.Enums;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Identity;
 using Ecommerce.Infrastructure.Identity.Entities;
@@ -103,10 +100,6 @@ public class AppDbSeeder
             else if (roleName == ERoles.Vendor)
             {
                 await AssignPermissionToRoleAsync(dbContext, EPermissions.Vendor, role);
-            }
-            else if (roleName == ERoles.Moderator)
-            {
-                #if DEBUG
             }
         }
     }

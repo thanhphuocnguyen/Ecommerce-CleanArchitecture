@@ -16,7 +16,7 @@ public interface IUserService
 
     Task<Result> ExistsWithPhoneNumberAsync(string phoneNumber, Guid? exceptId = null);
 
-    Task<List<UserDetailsDto>> GetListAsync(CancellationToken cancellationToken);
+    Task<Result<List<UserDetailsDto>>> GetListAsync(CancellationToken cancellationToken);
 
     Task<Result<int>> GetCountAsync(CancellationToken cancellationToken);
 

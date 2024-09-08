@@ -9,9 +9,9 @@ using Ecommerce.Domain.DomainEvents.Identity;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;
+using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Persistence.Specifications;
-using Ecommerce.Infrastructure.Identity.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -58,17 +58,17 @@ internal partial class UserService : IUserService
         _templateService = templateService;
     }
 
-    public async Task<bool> ExistsWithEmailAsync(string email, Guid? exceptId = null)
+    public async Task<Result> ExistsWithEmailAsync(string email, Guid? exceptId = null)
     {
         return await _userManager.FindByEmailAsync(email) is AppUser user && user.Id != exceptId;
     }
 
-    public async Task<bool> ExistsWithNameAsync(string name)
+    public async Task<Result> ExistsWithNameAsync(string name)
     {
         return await _userManager.FindByNameAsync(name) is AppUser;
     }
 
-    public async Task<bool> ExistsWithPhoneNumberAsync(string phoneNumber, Guid? exceptId = null)
+    public async Task<Result> ExistsWithPhoneNumberAsync(string phoneNumber, Guid? exceptId = null)
     {
         return await _userManager.Users.AnyAsync(u => u.PhoneNumber == phoneNumber && u.Id != exceptId);
     }
@@ -87,10 +87,10 @@ internal partial class UserService : IUserService
         return user.Adapt<UserDetailsDto>();
     }
 
-    public Task<int> GetCountAsync(CancellationToken cancellationToken) =>
-        _userManager.Users.AsNoTracking().CountAsync(cancellationToken);
+    public async Task<Result<int>> GetCountAsync(CancellationToken cancellationToken) =>
+        await _userManager.Users.AsNoTracking().CountAsync(cancellationToken);
 
-    public async Task<List<UserDetailsDto>> GetListAsync(CancellationToken cancellationToken)
+    public async Task<Result<List<UserDetailsDto>>> GetListAsync(CancellationToken cancellationToken)
     {
         return (await _userManager.Users.AsNoTracking().ToListAsync(cancellationToken)).Adapt<List<UserDetailsDto>>();
     }

@@ -1,11 +1,11 @@
 ﻿using Ecommerce.Application.Identity.Interface;
 using Ecommerce.Application.Identity.Roles;
 using Ecommerce.Application.Identity.Tokens;
-using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Roles;
 using Ecommerce.Infrastructure.Identity.Tokens;
 using Ecommerce.Infrastructure.Identity.Users;
+using Ecommerce.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 

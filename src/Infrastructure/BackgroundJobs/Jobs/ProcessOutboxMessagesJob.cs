@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Application.Common.Events;
 using Ecommerce.Domain.Shared.Primitives;
-using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Outbox;
+using Ecommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Quartz;

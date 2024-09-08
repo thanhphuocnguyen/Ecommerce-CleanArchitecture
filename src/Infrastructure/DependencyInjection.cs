@@ -6,6 +6,7 @@ using Ecommerce.Infrastructure.Caching;
 using Ecommerce.Infrastructure.FileStorage;
 using Ecommerce.Infrastructure.Mailing;
 using Ecommerce.Infrastructure.Persistence;
+using Ecommerce.Infrastructure.Persistence.Initialization;
 using Ecommerce.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,8 @@ public static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddTransient<AppDbInitializer>();
+
         services.AddSingleton(TimeProvider.System);
 
         services

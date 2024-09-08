@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Domain.Exceptions;
-using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Identity.Entities;
+using Ecommerce.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
