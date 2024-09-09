@@ -4,6 +4,7 @@ using Carter;
 using Ecommerce.Application.DependencyInjection;
 using Ecommerce.Infrastructure.BackgroundJobs;
 using Ecommerce.Infrastructure.DependencyInjection;
+using Ecommerce.Infrastructure.Persistence.Initialization;
 using Ecommerce.WebAPI.Exceptions;
 using Ecommerce.WebAPI.Middleware;
 using Ecommerce.WebAPI.OpenApi;
@@ -51,7 +52,9 @@ builder.Services.AddCarter();
 
 var app = builder.Build();
 
-await JobSchedulersSetup.StartOutboxScheduler(app);
+using var scope = app.Services.CreateScope();
+await JobSchedulersSetup.StartOutboxScheduler(scope.ServiceProvider);
+await app.Services.GetRequiredService<AppDbInitializer>().InitializeAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

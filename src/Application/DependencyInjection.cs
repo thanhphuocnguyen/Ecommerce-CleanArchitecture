@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application;
-using Ecommerce.Application.Behaviors;
+﻿using Ecommerce.Application.Behaviors;
 using Ecommerce.Application.Common.Events;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;

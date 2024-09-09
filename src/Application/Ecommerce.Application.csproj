@@ -17,9 +17,4 @@
   <ItemGroup>
     <ProjectReference Include="../Domain/Ecommerce.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Products/Commands/" />
-  </ItemGroup>
-
 </Project>

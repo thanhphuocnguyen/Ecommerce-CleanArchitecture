@@ -14,7 +14,11 @@ public class AppDbSeeder
     private readonly ICustomSeeder _customSeeder;
     private readonly ILogger<AppDbSeeder> _logger;
 
-    public AppDbSeeder(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, ICustomSeeder customSeeder, ILogger<AppDbSeeder> logger)
+    public AppDbSeeder(
+        RoleManager<AppRole> roleManager,
+        UserManager<AppUser> userManager,
+        ICustomSeeder customSeeder,
+        ILogger<AppDbSeeder> logger)
     {
         _roleManager = roleManager;
         _userManager = userManager;
@@ -22,11 +26,11 @@ public class AppDbSeeder
         _logger = logger;
     }
 
-    public async Task SeedAsync(ApplicationDbContext dbContext, CancellationToken cancellationToken)
+    public async Task SeedAsync(ApplicationDbContext dbContext)
     {
-        await SeedRolesAsync(dbContext, cancellationToken);
+        await SeedRolesAsync(dbContext);
         await SeedAdminAsync();
-        await _customSeeder.InitializeAsync(cancellationToken);
+        await _customSeeder.InitializeAsync();
     }
 
     private async Task SeedAdminAsync()
@@ -78,11 +82,11 @@ public class AppDbSeeder
         }
     }
 
-    private async Task SeedRolesAsync(ApplicationDbContext dbContext, CancellationToken cancellationToken)
+    private async Task SeedRolesAsync(ApplicationDbContext dbContext)
     {
         foreach (string roleName in ERoles.DefaultRoles)
         {
-            if (await _roleManager.Roles.SingleOrDefaultAsync(r => r.Name == roleName, cancellationToken) is not AppRole role)
+            if (await _roleManager.Roles.SingleOrDefaultAsync(r => r.Name == roleName) is not AppRole role)
             {
                 _logger.LogInformation("Seeding role {RoleName}...", roleName);
                 role = new AppRole(roleName);

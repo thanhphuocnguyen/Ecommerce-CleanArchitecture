@@ -1,5 +1,4 @@
 using Ecommerce.Infrastructure.BackgroundJobs.Jobs;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
@@ -7,9 +6,9 @@ namespace Ecommerce.Infrastructure.BackgroundJobs;
 
 public static class JobSchedulersSetup
 {
-    public static async Task StartOutboxScheduler(WebApplication builder)
+    public static async Task StartOutboxScheduler(IServiceProvider services)
     {
-        var schedulerFactory = builder.Services.GetRequiredService<ISchedulerFactory>();
+        var schedulerFactory = services.GetRequiredService<ISchedulerFactory>();
         var scheduler = await schedulerFactory.GetScheduler();
 
         var jobOutbox = JobBuilder.Create<ProcessOutboxMessagesJob>()

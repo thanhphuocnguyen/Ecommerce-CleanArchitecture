@@ -1,15 +1,10 @@
-﻿using Ecommerce.Domain.Interfaces;
-using Ecommerce.Domain.Repositories;
-using Ecommerce.Infrastructure.Authentication;
+﻿using Ecommerce.Infrastructure.Authentication;
 using Ecommerce.Infrastructure.BackgroundJobs;
 using Ecommerce.Infrastructure.Caching;
 using Ecommerce.Infrastructure.FileStorage;
 using Ecommerce.Infrastructure.Mailing;
-using Ecommerce.Infrastructure.Persistence;
-using Ecommerce.Infrastructure.Persistence.Initialization;
-using Ecommerce.Infrastructure.Persistence.Repositories;
+using Ecommerce.Infrastructure.Persistence.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,25 +14,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-        ArgumentException.ThrowIfNullOrWhiteSpace(connectionString, nameof(connectionString));
-
-        services.AddDbContext<ApplicationDbContext>((sp, options) =>
-        {
-            options.UseSqlite(connectionString);
-
-            // options.UseNpgsql(connectionString);
-        });
-
-        services.AddScoped<IProductRepository, ProductRepository>();
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddTransient<AppDbInitializer>();
-
         services.AddSingleton(TimeProvider.System);
 
         services
+            .AddPersistence(configuration)
             .AddAuth()
             .AddCaching()
             .AddFileStorage()

@@ -10,28 +10,31 @@ public class AppDbInitializer
     private readonly AppDbSeeder _dbSeeder;
     private readonly ILogger<AppDbInitializer> _logger;
 
-    public AppDbInitializer(ApplicationDbContext dbContext, AppDbSeeder dbSeeder, ILogger<AppDbInitializer> logger)
+    public AppDbInitializer(
+        ApplicationDbContext dbContext,
+        AppDbSeeder dbSeeder,
+        ILogger<AppDbInitializer> logger)
     {
         _dbContext = dbContext;
         _dbSeeder = dbSeeder;
         _logger = logger;
     }
 
-    public async Task InitializeAsync(CancellationToken cancellationToken)
+    public async Task InitializeAsync()
     {
         if (_dbContext.Database.GetMigrations().Any())
         {
-            if ((await _dbContext.Database.GetPendingMigrationsAsync(cancellationToken)).Any())
+            if ((await _dbContext.Database.GetPendingMigrationsAsync()).Any())
             {
                 _logger.LogInformation("Initializing database...");
-                await _dbContext.Database.MigrateAsync(cancellationToken);
+                await _dbContext.Database.MigrateAsync();
             }
 
-            if (!await _dbContext.Database.CanConnectAsync(cancellationToken))
+            if (!await _dbContext.Database.CanConnectAsync())
             {
                 _logger.LogInformation("Seeding initial data...");
 
-                await _dbSeeder.SeedAsync(_dbContext, cancellationToken);
+                await _dbSeeder.SeedAsync(_dbContext);
             }
 
             _logger.LogInformation("Database initialized.");
