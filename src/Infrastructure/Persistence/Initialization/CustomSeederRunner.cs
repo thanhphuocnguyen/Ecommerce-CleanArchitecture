@@ -12,11 +12,11 @@ public class CustomSeederRunner
         _seeders = serviceProvider.GetServices<ICustomSeeder>().ToArray();
     }
 
-    public async Task RunAsync(CancellationToken cancellationToken)
+    public async Task RunAsync()
     {
         foreach (var seeder in _seeders)
         {
-            await seeder.InitializeAsync(cancellationToken);
+            await seeder.InitializeAsync();
         }
     }
 }

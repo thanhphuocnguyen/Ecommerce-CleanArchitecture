@@ -1,5 +1,6 @@
 using Ecommerce.Domain.Common.Events;
 using Ecommerce.Domain.Common.Mailing;
+using Ecommerce.Domain.Identity.DomainEvents;
 
 namespace Ecommerce.Domain.Identity.Users.DomainEvents;
 

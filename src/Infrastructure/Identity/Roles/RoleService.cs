@@ -1,7 +1,7 @@
 using Ecommerce.Domain.Common.Events;
-using Ecommerce.Domain.Identity.Roles;
 using Ecommerce.Domain.DomainEvents;
 using Ecommerce.Domain.Errors;
+using Ecommerce.Domain.Identity.Roles;
 using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Identity;

@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Ecommerce.Domain.Identity.Users.Contracts;
-using Ecommerce.Domain.Entities;
+﻿using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;
 

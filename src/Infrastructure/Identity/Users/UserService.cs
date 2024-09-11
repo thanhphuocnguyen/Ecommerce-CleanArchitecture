@@ -2,10 +2,10 @@ using Ardalis.Specification.EntityFrameworkCore;
 using Ecommerce.Domain.Common.Events;
 using Ecommerce.Domain.Common.FileStorage;
 using Ecommerce.Domain.Common.Interfaces;
-using Ecommerce.Domain.Identity.Interface;
-using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.DomainEvents.Identity;
 using Ecommerce.Domain.Errors;
+using Ecommerce.Domain.Identity.Interface;
+using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Identity.Entities;
@@ -29,7 +29,6 @@ internal partial class UserService : IUserService
     private readonly ApplicationDbContext _dbContext;
     private readonly ICacheService _cacheService;
     private readonly ICacheKeyService _cacheKeys;
-    private readonly IEventPublisher _eventPublisher;
 
     public UserService(
         UserManager<AppUser> userManager,
@@ -38,7 +37,6 @@ internal partial class UserService : IUserService
         ApplicationDbContext dbContext,
         ICacheService cacheService,
         ICacheKeyService cacheKeys,
-        IEventPublisher eventPublisher,
         IFileStorageService fileStorageService)
     {
         _userManager = userManager;
@@ -48,7 +46,6 @@ internal partial class UserService : IUserService
         _dbContext = dbContext;
         _cacheService = cacheService;
         _cacheKeys = cacheKeys;
-        _eventPublisher = eventPublisher;
     }
 
     public async Task<Result> ExistsWithEmailAsync(string email, Guid? exceptId = null)
@@ -125,7 +122,7 @@ internal partial class UserService : IUserService
 
         user.IsActive = request.IsActive;
 
-        await _eventPublisher.PublishAsync(new AppUserUpdated(user.Id, user.UserName!));
+        user.AddDomainEvent(new AppUserUpdated(user.Id, user.UserName!));
 
         await _userManager.UpdateAsync(user);
         return Result.Success();
