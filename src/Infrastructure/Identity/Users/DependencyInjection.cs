@@ -1,6 +1,6 @@
-﻿using Ecommerce.Application.Identity.Interface;
-using Ecommerce.Application.Identity.Roles;
-using Ecommerce.Application.Identity.Tokens;
+﻿using Ecommerce.Domain.Identity.Interface;
+using Ecommerce.Domain.Identity.Roles;
+using Ecommerce.Domain.Identity.Tokens;
 using Ecommerce.Infrastructure.Identity.Entities;
 using Ecommerce.Infrastructure.Identity.Roles;
 using Ecommerce.Infrastructure.Identity.Tokens;

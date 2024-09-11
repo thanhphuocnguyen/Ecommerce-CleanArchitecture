@@ -1,5 +1,5 @@
 using System.Text;
-using Ecommerce.Application.Common.Mailing;
+using Ecommerce.Domain.Common.Mailing;
 using RazorEngineCore;
 
 namespace Ecommerce.Infrastructure.Mailing;

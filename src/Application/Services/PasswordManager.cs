@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace Ecommerce.Application.Services;
+namespace Ecommerce.Domain.Services;
 
 internal static class PasswordManager
 {

@@ -1,6 +1,6 @@
-﻿using Ecommerce.Application.Common.FileStorage;
+﻿using Ecommerce.Domain.Common.FileStorage;
 
-namespace Ecommerce.Application.Identity.Users.Contracts;
+namespace Ecommerce.Domain.Identity.Users.Contracts;
 
 public class UpdateUserRequest
 {

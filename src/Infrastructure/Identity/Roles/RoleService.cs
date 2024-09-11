@@ -1,5 +1,5 @@
-using Ecommerce.Application.Common.Events;
-using Ecommerce.Application.Identity.Roles;
+using Ecommerce.Domain.Common.Events;
+using Ecommerce.Domain.Identity.Roles;
 using Ecommerce.Domain.DomainEvents;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Interfaces;

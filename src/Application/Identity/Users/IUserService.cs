@@ -1,10 +1,10 @@
 ﻿using System.Security.Claims;
-using Ecommerce.Application.Identity.Users.Contracts;
+using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;
 
-namespace Ecommerce.Application.Identity.Interface;
+namespace Ecommerce.Domain.Identity.Interface;
 
 public interface IUserService
 {

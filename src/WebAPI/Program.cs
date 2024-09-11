@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Carter;
-using Ecommerce.Application.DependencyInjection;
+using Ecommerce.Domain.DependencyInjection;
 using Ecommerce.Infrastructure.BackgroundJobs;
 using Ecommerce.Infrastructure.DependencyInjection;
 using Ecommerce.Infrastructure.Persistence.Initialization;

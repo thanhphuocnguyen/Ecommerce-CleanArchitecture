@@ -1,7 +1,7 @@
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;
 
-namespace Ecommerce.Application.Common.FileStorage;
+namespace Ecommerce.Domain.Common.FileStorage;
 
 public interface IFileStorageService
 {

@@ -1,7 +1,7 @@
 using Ecommerce.Domain.Shared.Result;
 using MediatR;
 
-namespace Ecommerce.Application.Common.Commands;
+namespace Ecommerce.Domain.Common.Commands;
 
 public interface ICommand : IRequest<Result>
 {

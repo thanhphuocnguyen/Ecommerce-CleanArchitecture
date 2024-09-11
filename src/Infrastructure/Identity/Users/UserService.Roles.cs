@@ -1,4 +1,4 @@
-using Ecommerce.Application.Identity.Users.Contracts;
+using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared.Result;
 using Microsoft.EntityFrameworkCore;

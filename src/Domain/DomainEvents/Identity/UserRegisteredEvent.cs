@@ -1,7 +1,6 @@
-using System;
 using Ecommerce.Domain.Shared.Primitives;
 
-namespace Ecommerce.Application.Identity.Users.DomainEvents;
+namespace Ecommerce.Domain.Identity.DomainEvents;
 
 public record UserRegisteredEvent(Guid UserId, string Email, string UserName, string EmailVerificationUrl) : IDomainEvent
 {

@@ -1,6 +1,6 @@
 using Ecommerce.Domain.Shared.Primitives;
 
-namespace Ecommerce.Application.Common.Events;
+namespace Ecommerce.Domain.Common.Events;
 
 public interface IEventPublisher
 {

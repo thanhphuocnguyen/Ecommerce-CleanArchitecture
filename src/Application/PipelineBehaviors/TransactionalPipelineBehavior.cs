@@ -1,10 +1,10 @@
 ﻿using System.Data;
-using Ecommerce.Application.Common.Commands;
+using Ecommerce.Domain.Common.Commands;
 using Ecommerce.Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Ecommerce.Application.Behaviors;
+namespace Ecommerce.Domain.Behaviors;
 
 public class TransactionalPipelineBehavior<TRequest, TResponse>(
     IUnitOfWork unitOfWork,

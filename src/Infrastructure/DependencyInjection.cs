@@ -16,7 +16,7 @@ public static class DependencyInjection
     {
         services.AddSingleton(TimeProvider.System);
 
-        services
+        return services
             .AddPersistence(configuration)
             .AddAuth()
             .AddCaching()
@@ -24,14 +24,13 @@ public static class DependencyInjection
             .AddMailingInfrastructure(configuration)
             .AddMemoryCache()
             .AddBackgroundJobs();
-        return services;
     }
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {
-        app.UseAuthentication();
-        app.UseUserContext();
-        app.UseAuthorization();
-        return app;
+        return app
+            .UseAuthentication()
+            .UseUserContext()
+            .UseAuthorization();
     }
 }

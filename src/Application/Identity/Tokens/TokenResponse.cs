@@ -1,3 +1,3 @@
-﻿namespace Ecommerce.Application.Identity.Tokens;
+﻿namespace Ecommerce.Domain.Identity.Tokens;
 
 public record TokenResponse(string Token, string? RefreshToken, DateTime RefreshTokenExpiryTime);

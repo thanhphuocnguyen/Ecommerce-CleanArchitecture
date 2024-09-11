@@ -1,6 +1,6 @@
-using Ecommerce.Application.Common.Mailing;
-using Ecommerce.Application.Identity.Users.Contracts;
 using Ecommerce.Domain.Errors;
+using Ecommerce.Domain.Identity.DomainEvents;
+using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Identity.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
@@ -74,12 +74,9 @@ internal partial class UserService
         var endpointUri = new Uri($"{origin}/{route}");
 
         string passwordResetUrl = QueryHelpers.AddQueryString(endpointUri.ToString(), "token", code);
-        var mailRequest = new SendMailRequest(
-            new List<string> { request.Email },
-            "Reset Password",
-            "Please reset your password by clicking <a href=\"" + passwordResetUrl + "\">here</a>.");
 
-        await _mailService.SendEmailAsync(mailRequest, CancellationToken.None);
+        user.AddDomainEvent(new PasswordResetRequestedEvent(user.Id, request.Email, passwordResetUrl));
+
         return Result<string>.Success("Password reset link sent successfully.");
     }
 }

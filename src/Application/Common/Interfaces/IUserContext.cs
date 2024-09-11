@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Ecommerce.Domain.Entities;
 
-namespace Ecommerce.Application.Common.Interfaces;
+namespace Ecommerce.Domain.Common.Interfaces;
 
 public interface IUserContext
 {

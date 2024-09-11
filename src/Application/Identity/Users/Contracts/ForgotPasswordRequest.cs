@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Ecommerce.Application.Identity.Users.Contracts;
+namespace Ecommerce.Domain.Identity.Users.Contracts;
 
 public record ForgotPasswordRequest(string Email);
 

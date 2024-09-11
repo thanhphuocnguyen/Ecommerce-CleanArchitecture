@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;
 
-namespace Ecommerce.Application.Identity.Tokens;
+namespace Ecommerce.Domain.Identity.Tokens;
 
 public interface ITokenService
 {

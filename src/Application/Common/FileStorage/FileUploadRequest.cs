@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Ecommerce.Application.Common.FileStorage;
+namespace Ecommerce.Domain.Common.FileStorage;
 
 public class FileUploadRequest
 {

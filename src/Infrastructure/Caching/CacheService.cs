@@ -1,4 +1,4 @@
-﻿using Ecommerce.Application.Common.Interfaces;
+﻿using Ecommerce.Domain.Common.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Ecommerce.Infrastructure.Caching;

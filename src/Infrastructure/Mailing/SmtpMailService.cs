@@ -1,4 +1,4 @@
-using Ecommerce.Application.Common.Mailing;
+using Ecommerce.Domain.Common.Mailing;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Logging;

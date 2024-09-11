@@ -1,4 +1,4 @@
-﻿namespace Ecommerce.Application.Identity.Roles;
+﻿namespace Ecommerce.Domain.Identity.Roles;
 
 public record RoleDto
 {

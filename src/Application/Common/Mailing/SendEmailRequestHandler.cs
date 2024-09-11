@@ -1,7 +1,7 @@
 using Ecommerce.Domain.Shared.Result;
 using MediatR;
 
-namespace Ecommerce.Application.Common.Mailing;
+namespace Ecommerce.Domain.Common.Mailing;
 
 public class SendEmailRequestHandler : IRequestHandler<SendMailRequest, Result>
 {

@@ -1,9 +1,9 @@
-﻿using Ecommerce.Application.Behaviors;
-using Ecommerce.Application.Common.Events;
+﻿using Ecommerce.Domain.Behaviors;
+using Ecommerce.Domain.Common.Events;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Ecommerce.Application.DependencyInjection;
+namespace Ecommerce.Domain.DependencyInjection;
 
 public static class DependencyInjection
 {

@@ -1,4 +1,4 @@
-﻿using Ecommerce.Application.Common.Events;
+﻿using Ecommerce.Domain.Common.Events;
 using Ecommerce.Domain.Shared.Primitives;
 using Ecommerce.Infrastructure.Outbox;
 using Ecommerce.Infrastructure.Persistence;

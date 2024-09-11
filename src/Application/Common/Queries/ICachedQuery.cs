@@ -1,4 +1,4 @@
-﻿namespace Ecommerce.Application.Common.Queries;
+﻿namespace Ecommerce.Domain.Common.Queries;
 
 public interface ICachedQuery<TResponse> : IQuery<TResponse>, ICachedQuery
 {

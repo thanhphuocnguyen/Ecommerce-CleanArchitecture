@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Domain.Shared;
 
-namespace Ecommerce.Application.Identity.Users.Contracts;
+namespace Ecommerce.Domain.Identity.Users.Contracts;
 
 public class UserListFilter : PaginationFilter
 {

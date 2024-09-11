@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Ecommerce.Application.Common.Interfaces;
+using Ecommerce.Domain.Common.Interfaces;
 using Ecommerce.Infrastructure.Identity.Users;
 
 namespace Ecommerce.Infrastructure.Authentication;

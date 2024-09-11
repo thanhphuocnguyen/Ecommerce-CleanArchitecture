@@ -1,7 +1,7 @@
 using Carter;
-using Ecommerce.Application.Identity.Interface;
-using Ecommerce.Application.Identity.Tokens;
-using Ecommerce.Application.Identity.Users.Contracts;
+using Ecommerce.Domain.Identity.Interface;
+using Ecommerce.Domain.Identity.Tokens;
+using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.WebAPI.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 

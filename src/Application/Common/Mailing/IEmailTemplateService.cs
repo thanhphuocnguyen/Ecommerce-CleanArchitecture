@@ -1,4 +1,4 @@
-namespace Ecommerce.Application.Common.Mailing;
+namespace Ecommerce.Domain.Common.Mailing;
 
 public interface IEmailTemplateService
 {

@@ -1,4 +1,4 @@
-﻿using Ecommerce.Application.Common.Interfaces;
+﻿using Ecommerce.Domain.Common.Interfaces;
 using Ecommerce.Infrastructure.Authentication.Jwt;
 using Ecommerce.Infrastructure.Authentication.Permissions;
 using Ecommerce.Infrastructure.Identity.DependencyInjection;

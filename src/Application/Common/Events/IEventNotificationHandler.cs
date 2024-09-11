@@ -1,7 +1,7 @@
 using Ecommerce.Domain.Shared.Primitives;
 using MediatR;
 
-namespace Ecommerce.Application.Common.Events;
+namespace Ecommerce.Domain.Common.Events;
 
 public interface IEventNotificationHandler<TEvent> : INotificationHandler<EventNotification<TEvent>>
     where TEvent : IDomainEvent

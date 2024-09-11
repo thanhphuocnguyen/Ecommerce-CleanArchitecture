@@ -1,3 +1,3 @@
-﻿namespace Ecommerce.Application.Identity.Users.Contracts;
+﻿namespace Ecommerce.Domain.Identity.Users.Contracts;
 
 public record ToggleUserStatusRequest(Guid UserId, bool IsActive);

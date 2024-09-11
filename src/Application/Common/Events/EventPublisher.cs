@@ -2,7 +2,7 @@ using Ecommerce.Domain.Shared.Primitives;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Ecommerce.Application.Common.Events;
+namespace Ecommerce.Domain.Common.Events;
 
 public class EventPublisher(ILogger<EventPublisher> logger, IPublisher publisher) : IEventPublisher
 {

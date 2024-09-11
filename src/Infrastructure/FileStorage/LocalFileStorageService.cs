@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using Ecommerce.Application.Common.FileStorage;
+using Ecommerce.Domain.Common.FileStorage;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;

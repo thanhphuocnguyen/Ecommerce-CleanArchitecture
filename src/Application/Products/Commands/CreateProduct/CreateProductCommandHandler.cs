@@ -1,10 +1,10 @@
-﻿using Ecommerce.Application.Common.Commands;
+﻿using Ecommerce.Domain.Common.Commands;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Interfaces;
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Domain.Shared.Result;
 
-namespace Ecommerce.Application.Products.Commands.CreateProduct;
+namespace Ecommerce.Domain.Products.Commands.CreateProduct;
 
 internal class CreateProductCommandHandler(IUnitOfWork unitOfWork, IProductRepository productRepository)
     : ICommandHandler<CreateProductCommand>

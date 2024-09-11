@@ -1,4 +1,4 @@
-﻿namespace Ecommerce.Application.Identity.Tokens;
+﻿namespace Ecommerce.Domain.Identity.Tokens;
 
 public record RefreshTokenRequest
 {

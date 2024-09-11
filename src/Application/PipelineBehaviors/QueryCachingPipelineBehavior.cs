@@ -1,8 +1,8 @@
-﻿using Ecommerce.Application.Common.Interfaces;
-using Ecommerce.Application.Common.Queries;
+﻿using Ecommerce.Domain.Common.Interfaces;
+using Ecommerce.Domain.Common.Queries;
 using MediatR;
 
-namespace Ecommerce.Application.Behaviors;
+namespace Ecommerce.Domain.Behaviors;
 
 internal sealed class QueryCachingPipelineBehavior<TRequest, TResponse>(
     ICacheService cacheService)

@@ -1,6 +1,6 @@
-using Ecommerce.Application.Identity.Users.Contracts;
-using Ecommerce.Application.Identity.Users.DomainEvents;
 using Ecommerce.Domain.Errors;
+using Ecommerce.Domain.Identity.DomainEvents;
+using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Infrastructure.Identity.Entities;

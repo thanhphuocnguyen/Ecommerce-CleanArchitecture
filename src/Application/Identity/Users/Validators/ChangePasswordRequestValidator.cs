@@ -1,7 +1,7 @@
-﻿using Ecommerce.Application.Identity.Users.Contracts;
+﻿using Ecommerce.Domain.Identity.Users.Contracts;
 using FluentValidation;
 
-namespace Ecommerce.Application.Identity.Users.Validators;
+namespace Ecommerce.Domain.Identity.Users.Validators;
 
 public class ChangePasswordRequestValidator : AbstractValidator<ChangePasswordRequest>
 {

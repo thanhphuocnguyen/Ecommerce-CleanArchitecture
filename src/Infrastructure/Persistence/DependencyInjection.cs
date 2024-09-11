@@ -26,6 +26,7 @@ internal static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddTransient<AppDbInitializer>();
         services.AddRepositories();
+
         return services;
     }
 
@@ -34,6 +35,6 @@ internal static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
 
-        return services
+        return services;
     }
 }

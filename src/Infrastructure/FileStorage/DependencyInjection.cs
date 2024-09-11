@@ -1,4 +1,4 @@
-using Ecommerce.Application.Common.FileStorage;
+using Ecommerce.Domain.Common.FileStorage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ecommerce.Infrastructure.FileStorage;

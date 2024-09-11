@@ -1,10 +1,9 @@
 using Ardalis.Specification.EntityFrameworkCore;
-using Ecommerce.Application.Common.Events;
-using Ecommerce.Application.Common.FileStorage;
-using Ecommerce.Application.Common.Interfaces;
-using Ecommerce.Application.Common.Mailing;
-using Ecommerce.Application.Identity.Interface;
-using Ecommerce.Application.Identity.Users.Contracts;
+using Ecommerce.Domain.Common.Events;
+using Ecommerce.Domain.Common.FileStorage;
+using Ecommerce.Domain.Common.Interfaces;
+using Ecommerce.Domain.Identity.Interface;
+using Ecommerce.Domain.Identity.Users.Contracts;
 using Ecommerce.Domain.DomainEvents.Identity;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Shared;
@@ -26,8 +25,6 @@ internal partial class UserService : IUserService
     private readonly UserManager<AppUser> _userManager;
     private readonly RoleManager<AppRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly IMailService _mailService;
-    private readonly IEmailTemplateService _templateService;
     private readonly IFileStorageService _fileStorageService;
     private readonly ApplicationDbContext _dbContext;
     private readonly ICacheService _cacheService;
@@ -42,9 +39,7 @@ internal partial class UserService : IUserService
         ICacheService cacheService,
         ICacheKeyService cacheKeys,
         IEventPublisher eventPublisher,
-        IFileStorageService fileStorageService,
-        IMailService mailService,
-        IEmailTemplateService templateService)
+        IFileStorageService fileStorageService)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -54,8 +49,6 @@ internal partial class UserService : IUserService
         _cacheService = cacheService;
         _cacheKeys = cacheKeys;
         _eventPublisher = eventPublisher;
-        _mailService = mailService;
-        _templateService = templateService;
     }
 
     public async Task<Result> ExistsWithEmailAsync(string email, Guid? exceptId = null)
@@ -132,9 +125,9 @@ internal partial class UserService : IUserService
 
         user.IsActive = request.IsActive;
 
-        await _userManager.UpdateAsync(user);
-
         await _eventPublisher.PublishAsync(new AppUserUpdated(user.Id, user.UserName!));
+
+        await _userManager.UpdateAsync(user);
         return Result.Success();
     }
 }

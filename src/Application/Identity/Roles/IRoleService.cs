@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Domain.Shared.Result;
 
-namespace Ecommerce.Application.Identity.Roles;
+namespace Ecommerce.Domain.Identity.Roles;
 
 public interface IRoleService
 {

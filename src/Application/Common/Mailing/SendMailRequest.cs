@@ -2,7 +2,7 @@ using Ecommerce.Domain.Shared.Primitives;
 using Ecommerce.Domain.Shared.Result;
 using MediatR;
 
-namespace Ecommerce.Application.Common.Mailing;
+namespace Ecommerce.Domain.Common.Mailing;
 
 public record SendMailRequest(
     List<string> To,

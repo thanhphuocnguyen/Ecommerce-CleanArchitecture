@@ -1,4 +1,4 @@
-using Ecommerce.Application.Common.Mailing;
+using Ecommerce.Domain.Common.Mailing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

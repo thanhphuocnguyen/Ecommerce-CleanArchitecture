@@ -1,7 +1,7 @@
 ﻿using Application.Products.Contracts;
-using Ecommerce.Application.Common.Queries;
+using Ecommerce.Domain.Common.Queries;
 
-namespace Ecommerce.Application.Products.Queries.GetProductById;
+namespace Ecommerce.Domain.Products.Queries.GetProductById;
 
 public class GetProductByIdQuery : IQuery<ProductDto>
 {

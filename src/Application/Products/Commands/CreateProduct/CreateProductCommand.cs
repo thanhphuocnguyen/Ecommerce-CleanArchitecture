@@ -1,7 +1,7 @@
-﻿using Ecommerce.Application.Common.Commands;
+﻿using Ecommerce.Domain.Common.Commands;
 using Ecommerce.Domain.Entities;
 
-namespace Ecommerce.Application.Products.Commands.CreateProduct;
+namespace Ecommerce.Domain.Products.Commands.CreateProduct;
 
 public sealed record CreateProductCommand(
     string Name,

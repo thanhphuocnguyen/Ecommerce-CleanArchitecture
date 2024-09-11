@@ -1,8 +1,8 @@
-using Ecommerce.Application.Common.Events;
-using Ecommerce.Application.Common.Mailing;
-using Ecommerce.Application.Identity.Users.Contracts;
+using Ecommerce.Domain.Common.Events;
+using Ecommerce.Domain.Common.Mailing;
+using Ecommerce.Domain.Identity.Users.Contracts;
 
-namespace Ecommerce.Application.Identity.Users.DomainEvents;
+namespace Ecommerce.Domain.Identity.Users.DomainEvents;
 
 public class UserRegisteredEventHandler : EventNotificationHandler<UserRegisteredEvent>
 {
