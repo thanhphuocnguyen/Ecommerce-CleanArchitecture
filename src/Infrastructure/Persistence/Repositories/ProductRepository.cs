@@ -32,4 +32,9 @@ internal class ProductRepository(ApplicationDbContext dbContext) : IProductRepos
     {
         dbContext.Products.Update(product);
     }
+
+    public Task<int> CountAsync(CancellationToken cancellationToken = default)
+    {
+        return dbContext.Products.CountAsync();
+    }
 }

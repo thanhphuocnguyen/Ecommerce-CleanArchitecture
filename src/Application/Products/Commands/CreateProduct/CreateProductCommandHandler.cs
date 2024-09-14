@@ -17,6 +17,7 @@ internal class CreateProductCommandHandler(IUnitOfWork unitOfWork, IProductRepos
         var product = Product.Create(
             request.Name,
             request.Price,
+            request.Stock,
             request.Sku,
             "USD",
             request.Description,

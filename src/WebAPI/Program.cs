@@ -28,9 +28,11 @@ builder.Services.AddApiVersioning(opt =>
     opt.DefaultApiVersion = new ApiVersion(1);
     opt.ApiVersionReader = new UrlSegmentApiVersionReader();
 
-    // ApiVersionReader.Combine(
-    //     new UrlSegmentApiVersionReader(),
-    //     new HeaderApiVersionReader("X-ApiVersion"));
+    /* FIXME:
+    ApiVersionReader.Combine(
+    new UrlSegmentApiVersionReader(),
+    new HeaderApiVersionReader("X-ApiVersion"));
+    */
 })
 .AddApiExplorer(opt =>
 {
@@ -54,7 +56,11 @@ var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
 await JobSchedulersSetup.StartOutboxScheduler(scope.ServiceProvider);
-await app.Services.GetRequiredService<AppDbInitializer>().InitializeAsync();
+
+if (app.Environment.IsDevelopment())
+{
+    await scope.ServiceProvider.GetRequiredService<AppDbInitializer>().InitializeAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

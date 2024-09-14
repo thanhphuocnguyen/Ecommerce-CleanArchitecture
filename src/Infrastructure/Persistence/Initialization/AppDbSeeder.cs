@@ -11,18 +11,18 @@ public class AppDbSeeder
 {
     private readonly RoleManager<AppRole> _roleManager;
     private readonly UserManager<AppUser> _userManager;
-    private readonly ICustomSeeder _customSeeder;
+
+    // TODO: Add ICustomSeeder
+    // private readonly ICustomSeeder _customSeeder;
     private readonly ILogger<AppDbSeeder> _logger;
 
     public AppDbSeeder(
         RoleManager<AppRole> roleManager,
         UserManager<AppUser> userManager,
-        ICustomSeeder customSeeder,
         ILogger<AppDbSeeder> logger)
     {
         _roleManager = roleManager;
         _userManager = userManager;
-        _customSeeder = customSeeder;
         _logger = logger;
     }
 
@@ -30,7 +30,9 @@ public class AppDbSeeder
     {
         await SeedRolesAsync(dbContext);
         await SeedAdminAsync();
-        await _customSeeder.InitializeAsync();
+
+        // TODO: Add ICustomSeeder
+        // await _customSeeder.InitializeAsync();
     }
 
     private async Task SeedAdminAsync()
@@ -38,18 +40,19 @@ public class AppDbSeeder
         if (await _userManager.FindByNameAsync("admin") is not AppUser user)
         {
             _logger.LogInformation("Seeding admin user...");
-            user = new AppUser
+            user = new
             {
                 FirstName = "This is",
                 LastName = "Root User",
                 UserName = "admin",
                 Email = "admin@ntp.com",
-                EmailConfirmed = true,
-                PhoneNumberConfirmed = true,
                 NormalizedEmail = "admin@ntp.com".ToUpperInvariant(),
                 NormalizedUserName = "admin".ToUpperInvariant(),
                 IsActive = true
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
             };
+
             _logger.LogInformation("Creating admin user...");
             var password = new PasswordHasher<AppUser>();
             user.PasswordHash = password.HashPassword(user, "admin");
@@ -80,6 +83,7 @@ public class AppDbSeeder
                 });
             }
         }
+        await dbContext.SaveChangesAsync();
     }
 
     private async Task SeedRolesAsync(ApplicationDbContext dbContext)

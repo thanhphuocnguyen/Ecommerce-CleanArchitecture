@@ -13,4 +13,6 @@ public interface IProductRepository
     void Update(Product product);
 
     void Remove(Product product);
+
+    Task<int> CountAsync(CancellationToken cancellationToken = default);
 }

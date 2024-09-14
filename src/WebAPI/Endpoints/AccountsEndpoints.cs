@@ -1,4 +1,5 @@
 using Carter;
+using Ecommerce.Domain.Common.Interfaces;
 using Ecommerce.Domain.Identity.Interface;
 using Ecommerce.Domain.Identity.Tokens;
 using Ecommerce.Domain.Identity.Users.Contracts;
@@ -47,9 +48,15 @@ public class AccountsEndpoints : ICarterModule
         return result.Match(() => Results.Ok(result.Value));
     }
 
-    private async Task<IResult> GetAccountInfo([FromRoute] Guid userId, IUserService userService)
+    private async Task<IResult> GetAccountInfo(IUserContext userCtx, IUserService userService)
     {
-        var result = await userService.GetAsync(userId, default!);
+        var userId = userCtx.GetUserId();
+        if (!userId.HasValue)
+        {
+            return Results.Unauthorized();
+        }
+
+        var result = await userService.GetAsync(userId.Value, default!);
 
         return result.Match(() => Results.Ok(result.Value));
     }

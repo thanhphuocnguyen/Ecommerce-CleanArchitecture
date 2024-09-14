@@ -6,6 +6,7 @@ namespace Ecommerce.Domain.Products.Commands.CreateProduct;
 public sealed record CreateProductCommand(
     string Name,
     decimal Price,
+    int Stock,
     string Sku,
     decimal ComparePrice,
     string Description,

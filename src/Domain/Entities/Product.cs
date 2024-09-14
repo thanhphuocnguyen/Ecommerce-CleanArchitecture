@@ -1,5 +1,4 @@
 ﻿using Ecommerce.Domain.Enums;
-using Ecommerce.Domain.Shared;
 using Ecommerce.Domain.Shared.Primitives;
 using Ecommerce.Domain.Shared.Result;
 using Ecommerce.Domain.ValueObjects;
@@ -16,6 +15,7 @@ public sealed class Product : Entity<ProductId>
         ProductId id,
         string name,
         Money price,
+        int stock,
         Sku sku,
         Money discount,
         string description,
@@ -30,6 +30,7 @@ public sealed class Product : Entity<ProductId>
         Description = description;
         ComparePrice = comparePrice;
         CreatorId = creatorId;
+        Stock = stock;
     }
 
     public string Name { get; private set; } = null!;
@@ -54,7 +55,7 @@ public sealed class Product : Entity<ProductId>
 
     public bool IsOutOfStock => Stock == 0;
 
-    public Guid CreatorId { get; private set; } = default!;
+    public Guid CreatorId { get; private set; }
 
     public void SetStock(int stock)
     {
@@ -69,6 +70,7 @@ public sealed class Product : Entity<ProductId>
     public static Result<Product> Create(
         string name,
         decimal price,
+        int stock,
         string sku,
         string currency,
         string description,
@@ -105,9 +107,10 @@ public sealed class Product : Entity<ProductId>
 
         var product = Result<Product>.Success(
             new Product(
-                new(Guid.NewGuid()),
+                new ProductId(Guid.NewGuid()),
                 name,
                 priceResult.Value,
+                stock,
                 skuResult.Value,
                 discountResult.Value,
                 description,
