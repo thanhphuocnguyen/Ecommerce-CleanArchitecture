@@ -9,5 +9,5 @@ public class AppRoleClaim : IdentityRoleClaim<Guid>
 
     public DateTimeOffset? LastModified { get; set; }
 
-    public string CreatedBy { get; set; } = null!;
+    public required string CreatedBy { get; set; }
 }

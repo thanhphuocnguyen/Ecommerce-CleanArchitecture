@@ -40,7 +40,7 @@ public class AppDbSeeder
         if (await _userManager.FindByNameAsync("admin") is not AppUser user)
         {
             _logger.LogInformation("Seeding admin user...");
-            user = new
+            user = new AppUser
             {
                 FirstName = "This is",
                 LastName = "Root User",
@@ -48,7 +48,7 @@ public class AppDbSeeder
                 Email = "admin@ntp.com",
                 NormalizedEmail = "admin@ntp.com".ToUpperInvariant(),
                 NormalizedUserName = "admin".ToUpperInvariant(),
-                IsActive = true
+                IsActive = true,
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
             };
@@ -77,12 +77,14 @@ public class AppDbSeeder
                 dbContext.RoleClaims.Add(new AppRoleClaim
                 {
                     RoleId = role.Id,
+                    Created = DateTime.UtcNow,
                     ClaimType = EClaims.Permission,
                     ClaimValue = permission.Name,
                     CreatedBy = "ApplicationDbSeeder"
                 });
             }
         }
+
         await dbContext.SaveChangesAsync();
     }
 

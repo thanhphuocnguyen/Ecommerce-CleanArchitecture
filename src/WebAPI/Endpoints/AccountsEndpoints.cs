@@ -3,6 +3,7 @@ using Ecommerce.Domain.Common.Interfaces;
 using Ecommerce.Domain.Identity.Interface;
 using Ecommerce.Domain.Identity.Tokens;
 using Ecommerce.Domain.Identity.Users.Contracts;
+using Ecommerce.Domain.Shared;
 using Ecommerce.WebAPI.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ public class AccountsEndpoints : ICarterModule
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("accounts");
+        var group = app.MapGroup("accounts").WithTags(["Accounts"]);
 
         group
             .MapPost(LoginPath, Login)
@@ -30,7 +31,7 @@ public class AccountsEndpoints : ICarterModule
 
         group
             .MapGet(AccountInfoPath, GetAccountInfo)
-            .RequireAuthorization()
+            .RequireAuthorization([ERoles.Admin])
             .WithName("Account Info");
     }
 

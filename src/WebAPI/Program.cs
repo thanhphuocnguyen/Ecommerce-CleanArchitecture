@@ -42,7 +42,6 @@ builder.Services.AddApiVersioning(opt =>
 
 builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 
-builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 
 builder.Host.UseSerilog((ctx, config) =>
@@ -56,11 +55,6 @@ var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
 await JobSchedulersSetup.StartOutboxScheduler(scope.ServiceProvider);
-
-if (app.Environment.IsDevelopment())
-{
-    await scope.ServiceProvider.GetRequiredService<AppDbInitializer>().InitializeAsync();
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -76,14 +70,13 @@ if (app.Environment.IsDevelopment())
                 apiVersionDescription.GroupName.ToUpperInvariant());
         }
     });
+    await scope.ServiceProvider.GetRequiredService<AppDbInitializer>().InitializeAsync();
 }
 
 app
     .UseExceptionHandler()
     .UseSerilogRequestLogging()
     .UseInfrastructure();
-
-app.MapControllers();
 
 var apiVersion = app.NewApiVersionSet()
     .HasApiVersion(new ApiVersion(1))
@@ -98,7 +91,6 @@ var versionedGroup = app
 versionedGroup.MapCarter();
 
 app.UseHttpsRedirection();
-
 app.UseMiddleware<RequestLogContextMiddleware>();
 
 await app.RunAsync();

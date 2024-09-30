@@ -1,4 +1,5 @@
 using Ecommerce.Domain.Common.Events;
+using Ecommerce.Domain.Common.Interfaces;
 using Ecommerce.Domain.DomainEvents;
 using Ecommerce.Domain.Errors;
 using Ecommerce.Domain.Identity.Roles;
@@ -23,19 +24,22 @@ public class RoleService : IRoleService
     private readonly UserManager<AppUser> _userManager;
     private readonly ApplicationDbContext _dbContext;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserContext _userContext;
 
     public RoleService(
         RoleManager<AppRole> roleManager,
         IEventPublisher eventPublisher,
         UserManager<AppUser> userManager,
         ApplicationDbContext dbContext,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IUserContext userContext)
     {
         _roleManager = roleManager;
         _eventPublisher = eventPublisher;
         _userManager = userManager;
         _dbContext = dbContext;
         _unitOfWork = unitOfWork;
+        _userContext = userContext;
     }
 
     public async Task<Result<Guid>> CreateOrUpdateAsync(CreateOrUpdateRoleRequest request)
@@ -172,6 +176,7 @@ public class RoleService : IRoleService
                     ClaimType = EClaims.Permission,
                     ClaimValue = permission,
                     Created = DateTime.UtcNow,
+                    CreatedBy = _userContext.Name ?? "Anonymous",
                 });
             }
         }

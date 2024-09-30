@@ -17,7 +17,8 @@ internal static class DependencyInjection
             .AddUserContext()
             .AddPermissions()
             .AddIdentity()
-            .AddJwt();
+            .AddJwt()
+            .AddAuthorization();
         return services;
     }
 
