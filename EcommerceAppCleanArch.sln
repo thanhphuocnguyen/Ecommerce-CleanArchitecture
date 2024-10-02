@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A4AD5508-067
 		Directory.Build.props = Directory.Build.props
 		stylecop.json = stylecop.json
 		.gitignore = .gitignore
+		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Domain", "src\Domain\Ecommerce.Domain.csproj", "{60B8C1A8-3EB0-4854-A991-0DE698125443}"

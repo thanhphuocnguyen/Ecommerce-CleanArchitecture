@@ -21,7 +21,7 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
-builder.Services.AddExceptionHandler<ExceptionHandler>();
+builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 builder.Services.AddProblemDetails();
 builder.Services.AddApiVersioning(opt =>
 {
@@ -40,9 +40,8 @@ builder.Services.AddApiVersioning(opt =>
     opt.SubstituteApiVersionInUrl = true;
 });
 
-builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
-
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddExceptionHandler<ExceptionHandler>();
 
 builder.Host.UseSerilog((ctx, config) =>
 {
@@ -55,6 +54,11 @@ var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
 await JobSchedulersSetup.StartOutboxScheduler(scope.ServiceProvider);
+
+app
+    .UseExceptionHandler()
+    .UseSerilogRequestLogging()
+    .UseInfrastructure();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -72,11 +76,6 @@ if (app.Environment.IsDevelopment())
     });
     await scope.ServiceProvider.GetRequiredService<AppDbInitializer>().InitializeAsync();
 }
-
-app
-    .UseExceptionHandler()
-    .UseSerilogRequestLogging()
-    .UseInfrastructure();
 
 var apiVersion = app.NewApiVersionSet()
     .HasApiVersion(new ApiVersion(1))

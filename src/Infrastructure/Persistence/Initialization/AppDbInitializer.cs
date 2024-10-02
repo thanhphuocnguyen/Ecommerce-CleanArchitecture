@@ -30,7 +30,7 @@ public class AppDbInitializer
                 await _dbContext.Database.MigrateAsync();
             }
 
-            if (!await _dbContext.Database.CanConnectAsync())
+            if (await _dbContext.Database.CanConnectAsync())
             {
                 _logger.LogInformation("Seeding initial data...");
 
